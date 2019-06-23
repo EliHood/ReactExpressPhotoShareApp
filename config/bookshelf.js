@@ -8,7 +8,6 @@ const herokuOrNot = process.env.NODE_ENV !== 'production' ? config.development :
 
 const Bookshelf = bookshelf(knex(herokuOrNot));
 Bookshelf.plugin('registry');
-Bookshelf.plugin(cascadeDelete); // Resolve circular dependencies with relations
-
+Bookshelf.plugin(cascadeDelete);
 
 export default Bookshelf;

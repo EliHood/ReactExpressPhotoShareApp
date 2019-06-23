@@ -41,7 +41,7 @@ class Dashboard extends Component{
         })
         // console.log(this.state.description)
     }
-    async componentWillMount(){
+    async componentDidMount(){
         await this.props.getImages();
         console.log(this.props.image.images);
     }
