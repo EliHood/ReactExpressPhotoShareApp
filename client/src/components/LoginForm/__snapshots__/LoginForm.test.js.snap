@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render <LoginForm/> Component should render button 1`] = `
+<form>
+  <WithStyles(ForwardRef(TextField))
+    fullWidth={true}
+    label="Username"
+    margin="normal"
+    name="username"
+    style={
+      Object {
+        "borderRadius": 25,
+      }
+    }
+  />
+  <WithStyles(ForwardRef(TextField))
+    className=""
+    fullWidth={true}
+    label="Password"
+    margin="normal"
+    name="password"
+    style={
+      Object {
+        "borderRadius": "0px",
+      }
+    }
+    type="password"
+  />
+  <br />
+  <br />
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    type="submit"
+    variant="outlined"
+  >
+    Log In
+  </WithStyles(ForwardRef(Button))>
+</form>
+`;
+
+exports[`should render <LoginForm/> Component should snap <LoginForm/> component 1`] = `
+<form>
+  <WithStyles(ForwardRef(TextField))
+    fullWidth={true}
+    label="Username"
+    margin="normal"
+    name="username"
+    style={
+      Object {
+        "borderRadius": 25,
+      }
+    }
+  />
+  <WithStyles(ForwardRef(TextField))
+    className=""
+    fullWidth={true}
+    label="Password"
+    margin="normal"
+    name="password"
+    style={
+      Object {
+        "borderRadius": "0px",
+      }
+    }
+    type="password"
+  />
+  <br />
+  <br />
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    type="submit"
+    variant="outlined"
+  >
+    Log In
+  </WithStyles(ForwardRef(Button))>
+</form>
+`;

@@ -1,0 +1,43 @@
+# docker-compose.yml
+version: "3"
+services:
+  app:
+    build: .
+    depends_on:
+      - database
+    ports:
+      - 3000:3000
+    environment:
+      - HOST=database
+      # name of the container for ex .*****
+      # docker exec -it ***** psql -U postgres -c "create database es6knex"
+      # ^ this creates the es6knex database on docker postgres
+      - DBNAME=eliknexapp
+    env_file:
+      - .env
+    command: bash -c "npm run migrate && npm run seed && npm start"
+
+  react_client:
+      build:
+        context: ./client
+        dockerfile: Dockerfile
+      image: react_client
+      working_dir: /home/node/app/client
+      volumes:
+        - ./:/home/node/app
+      ports:
+        - 3001:3001
+  database:
+    image: postgres:9.6.8-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DBPASS:-password}
+      POSTGRES_USER: ${DBUSER:-knexuser}
+      POSTGRES_DB: ${DBNAME:-eliknexapp}
+    ports:
+      - 8002:5432
+    env_file:
+      - .env
+volumes:
+  db-data:

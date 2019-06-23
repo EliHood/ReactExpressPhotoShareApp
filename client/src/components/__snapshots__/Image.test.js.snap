@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render <Image/> Component should test for image_url prop 1`] = `
+<Image
+  image_url="https://res.cloudinary.com/dq281hpqd/image/upload/v1559697741/s3wxjfweznq8kqum2p0x.png"
+>
+  <img
+    alt="stuff"
+    height="100%"
+    src="https://res.cloudinary.com/dq281hpqd/image/upload/v1559697741/s3wxjfweznq8kqum2p0x.png"
+    width="100%"
+  />
+</Image>
+`;

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render <SignUpForm/> should match SignUpForm snap 1`] = `
+<form>
+  <WithStyles(ForwardRef(TextField))
+    label="Username"
+    margin="normal"
+    name="username"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  />
+  <br />
+  <WithStyles(ForwardRef(TextField))
+    className=""
+    label="Email"
+    margin="normal"
+    name="email"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  />
+  <br />
+  <WithStyles(ForwardRef(TextField))
+    className=""
+    label="Password"
+    margin="normal"
+    name="password"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+    type="password"
+  />
+  <br />
+  <WithStyles(ForwardRef(TextField))
+    className=""
+    label="Confirm Password"
+    margin="normal"
+    name="passwordConf"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+    type="password"
+  />
+  <br />
+  <br />
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    type="submit"
+    variant="outlined"
+  >
+    Sign Up
+  </WithStyles(ForwardRef(Button))>
+</form>
+`;

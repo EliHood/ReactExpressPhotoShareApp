@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render <Comment/> component should render Comment Component Snap 1`] = `
+<div>
+  <form>
+    <WithStyles(ForwardRef(TextField))
+      fullWidth={true}
+      id="outlined-multiline-static"
+      label="Write A Comment"
+      margin="normal"
+      multiline={true}
+      name="comment_body"
+      rows="10"
+      type="text"
+      variant="outlined"
+    />
+    <button
+      color="primary"
+      component="span"
+      type="submit"
+      variant="outlined"
+    >
+      Write a Comment
+    </button>
+  </form>
+</div>
+`;
