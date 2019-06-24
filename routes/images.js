@@ -25,8 +25,8 @@ cloudinary.config({
 })
 
 
-router.get('/uploads', async (req, res) =>  {
-    await Image.query( (image) => {
+router.get('/uploads',  (req, res) =>  {
+    Image.query( (image) => {
         image.orderBy('img_url', 'DESC')
         image.limit(10)
         // if you want to include the user with the image, you would use the withRelated 

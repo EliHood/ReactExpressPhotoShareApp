@@ -29,9 +29,12 @@ class Dashboard extends Component{
         // data.append('ourImage', this.state.description)
         data.append('ourImage',image, this.state.description )
         this.props.uploadImage(data);
+        
         this.setState({
             description: ''
         })
+      
+
         
     }
     handleChange = (e) => {
@@ -41,10 +44,12 @@ class Dashboard extends Component{
         })
         // console.log(this.state.description)
     }
-    async componentDidMount(){
-        await this.props.getImages();
+    componentDidMount(){
+        this.props.getImages();
         console.log(this.props.image.images);
     }
+
+
     onUploadClick = (e) => {
         e.preventDefault();
         this.setState({

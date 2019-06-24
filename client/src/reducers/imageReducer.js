@@ -1,10 +1,7 @@
 import { GET_IMAGES, POST_COMMENT, DELETE_IMAGE, UPLOAD_IMAGE } from '../actions/types';
-
 const initialState = {
     images:[],
-
 }
-
 export default  (state = initialState, action) => {
     switch (action.type) {
         case GET_IMAGES:
@@ -14,12 +11,10 @@ export default  (state = initialState, action) => {
                 images:action.data
             }
         case UPLOAD_IMAGE:
-            const newState = {...state}
-            const myImages = newState.images // old images
-
             const newImage = action.newImage
             console.log(newImage[0]); // gets the new uploaded image. 
             return {
+             
                 images:[
                     {
                         id: newImage[0].id,
@@ -32,16 +27,14 @@ export default  (state = initialState, action) => {
                         image_title: newImage[0].image_title,
                         img_url: newImage[0].img_url,
                     },
-                    myImages[0] // pass the previous images
-                    
-                ]      
+                    ...state.images
+                ]   
             }
         case DELETE_IMAGE:
             return{
                 ...state,
                 images: state.images.filter( (img) => img.id !== action.payload)
             }
-
         case POST_COMMENT:
             //  adds a comment to a post without having to re render.
             // console.log(action.data.commentBody);
@@ -60,8 +53,6 @@ export default  (state = initialState, action) => {
                                         user:{
                                             username:action.newComment[0].user.username
                                         }
-
-                                        
                                     },                                
                                 ]
                             }

@@ -2,7 +2,7 @@ import Axios from 'axios';
 import 'dotenv/config';
 
 let AxiosInstance = Axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: process.env.REACT_APP_BASE_URL,  // localhost:3000
     withCredentials: true,
     headers : {
       'Content-Type' : 'application/json',
