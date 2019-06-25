@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import {postComment} from '../actions/imageActions';
 import {withStyles} from '@material-ui/core/styles';
 import imageStyles from '../styles/imageStyles';
+import LazyLoad from 'react-lazyload';
 class ImageContainer extends React.Component{
     state = {
       isComment: false,
@@ -49,6 +50,7 @@ class ImageContainer extends React.Component{
        const { img, deleteImg, classes} = this.props
        return(
            <Grid item sm={12} md={12} className={classes.imageGridItem}>
+               <LazyLoad throttle={200} height={600}> 
                <Paper className={classes.imageContainerPaper}>
          {/* // empty image_title */}
                <Typography className={classes.imageTypographyTitle} variant="h4" align="center">{img.image_title}</Typography> 
@@ -105,8 +107,9 @@ class ImageContainer extends React.Component{
                 </div>
             )}
             </div>
-           
-            </Paper>                              
+        
+            </Paper>   
+            </LazyLoad>                           
         </Grid>        
       )
    }
