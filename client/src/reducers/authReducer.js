@@ -1,4 +1,4 @@
-import {SET_CURRENT_USER, GET_ERRORS} from '../actions/types';
+import {SET_CURRENT_USER, GET_ERRORS, GET_CURRENT_USER} from '../actions/types';
 import isEmpty from '../actions/utils/isEmpty';
 
 const initialState = {
@@ -22,7 +22,13 @@ export default  (state = initialState, action) => {
             // allows for us to loop through an array of errors.
             return{
             	errors: [action.payload]
-            }     
+            }  
+        case GET_CURRENT_USER:
+            return{
+                ...state,
+                current_user:action.data
+            }
+               
 
         default:
             return state;

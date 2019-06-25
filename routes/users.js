@@ -78,6 +78,14 @@ router.post('/register', [
     })(req, res, next);
 });
 
+router.get("/current_user", (req, res) => {
+    if(req.user){
+      res.status(200).send({ user: req.user});
+    } else {
+      res.json({ user:null})
+    }
+  
+});
 
 router.post('/auth/google',  
     passport.authenticate('google', { scope: ['profile', 'email']}),  (req, res, next) => {
@@ -149,8 +157,8 @@ router.get("/current_user", (req, res) => {
   });
 
 router.get('/logout', (req, res) => {
-    req.logout()
-    res.sendStatus(200);
+    req.logOut();
+    res.status(200).send('user logged out')
 })
 
 export default router;

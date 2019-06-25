@@ -134,7 +134,8 @@ class Dashboard extends Component{
 }
 
 const mapStateToProps = (state) => ({
-   image: state.image
+   image: state.image,
+   auth:state.auth
 })
 const mapDispatchToProps = (dispatch) => ({
    getImages: () => dispatch(getImages()),

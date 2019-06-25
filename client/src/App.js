@@ -4,7 +4,7 @@ import setAuthToken from "./actions/utils/setAuthToken";
 import Navbar from './layout/Navbar';
 import jwt_decode from "jwt-decode";
 import store from './store';
-import {setCurrentUser, logoutUser } from './actions/authActions';
+import {setCurrentUser, logoutUser, getUser } from './actions/authActions';
 import { Provider } from "react-redux";
 // JWT TOKEN
 if (sessionStorage.jwtToken) {
@@ -22,6 +22,8 @@ if (sessionStorage.jwtToken) {
     // Redirect to login
     window.location.href = "/login";
   }
+
+  store.dispatch( getUser());
 }
 class App extends Component {
   render(){

@@ -13,8 +13,7 @@ export default  (state = initialState, action) => {
         case UPLOAD_IMAGE:
             const newImage = action.newImage
             console.log(newImage[0]); // gets the new uploaded image. 
-            return {
-             
+            return {           
                 images:[
                     {
                         id: newImage[0].id,
@@ -22,12 +21,14 @@ export default  (state = initialState, action) => {
                             username:newImage[0].user.username
                         },
                         comments:{
+                            
                           comment_body: newImage[0].comments.comment_body  
                         },
                         image_title: newImage[0].image_title,
                         img_url: newImage[0].img_url,
                     },
-                    ...state.images
+                    ...state.images, // pass the previous images, 
+                    
                 ]   
             }
         case DELETE_IMAGE:

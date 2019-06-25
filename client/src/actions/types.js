@@ -1,6 +1,7 @@
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_ERRORS = "GET_ERRORS";
 export const GET_USER = "GET_USER";
+export const GET_CURRENT_USER = "GET_USER";
 
 // image actions
 export const GET_IMAGES = "GET_IMAGES";

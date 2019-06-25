@@ -20,6 +20,7 @@ class ImageContainer extends React.Component{
       isComment: false,
       comment_body: ""
     }
+
     handleCommentChange = (e) => {
         this.setState({
            comment_body: e.target.value
@@ -46,7 +47,7 @@ class ImageContainer extends React.Component{
     
     }
     render(){
-       const { img, deleteImg, classes } = this.props
+       const { img, deleteImg, classes, auth } = this.props
        return(
            <Grid item sm={12} md={12} className={classes.imageGridItem}>
                <Paper className={classes.imageContainerPaper}>
@@ -67,9 +68,18 @@ class ImageContainer extends React.Component{
                             commentChange={this.handleCommentChange}/> 
             : null}
             {/* hide delete button when user enters comment */}
-            {!this.state.isComment ? <Button className={classes.deleteButton} onClick={deleteImg} variant="outlined" component="span" color="primary">
-                Delete
-            </Button> : null}
+            {/* if user_id is equal too the current_user id, user can delete there post. */}
+            {auth.current_user.user.id === img.user_id ? (
+                <span>
+                {!this.state.isComment  ? <Button className={classes.deleteButton} onClick={deleteImg} variant="outlined" component="span" color="primary">
+                    Delete
+                </Button> : null}
+                </span>
+            ) : (
+                null
+            )}
+
+           
             {/* image comments */}
             {/* if have comments show Comments */}
             {img.comments.length > 0 ? <Typography className={classes.commentsTitle}  variant="h6" align="left">Commments </Typography> : null }
@@ -103,7 +113,8 @@ class ImageContainer extends React.Component{
    }
 }
 const mapStateToProps = (state) => ({
-    image: state.image
+    image: state.image,
+    auth: state.auth
  })
  const mapDispatchToProps = (dispatch) => ({
     postComment: (data) => dispatch(postComment(data))
