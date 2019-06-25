@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import { Router, Link, Route, Switch} from "react-router-dom";
 import PrivateRoute from '../components/PrivateRoute';
 import Home from '../components/Home';
 import Dashboard from '../components/Dashboard';
@@ -12,11 +12,17 @@ import Button from '@material-ui/core/Button';
 import {logoutUser} from '../actions/authActions';
 import SignUp from "../components/SignUp";
 import Grid from '@material-ui/core/Grid';
+import {createBrowserHistory} from 'history';
+
+// import createBrowserHistory from 'history/createBrowserHistory'
+
+export const history = createBrowserHistory({forceRefresh:true})
 
 class Navbar extends Component {
     logout = (e) => {
         e.preventDefault();
         this.props.logoutUser();
+        history.push('/login');
 
     }
     render() {
@@ -52,7 +58,7 @@ class Navbar extends Component {
         );
         return (
             <div>
-                <BrowserRouter>
+                <Router history={history}>
           
                     <AppBar position="static">
                         <Toolbar>
@@ -87,7 +93,7 @@ class Navbar extends Component {
                         <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
                         
                     </Switch>
-                </BrowserRouter>
+                </Router>
             </div>
         )
     }

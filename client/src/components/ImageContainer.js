@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Image from './Image';
-import Axios from '../Axios';
 import {compose} from 'redux';
 import moment from 'moment';
 import Comment from './Comment';
@@ -47,7 +46,7 @@ class ImageContainer extends React.Component{
     
     }
     render(){
-       const { img, deleteImg, classes, auth } = this.props
+       const { img, deleteImg, classes} = this.props
        return(
            <Grid item sm={12} md={12} className={classes.imageGridItem}>
                <Paper className={classes.imageContainerPaper}>

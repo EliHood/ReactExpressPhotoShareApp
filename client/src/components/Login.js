@@ -8,6 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { GoogleLoginButton} from "react-social-login-buttons";
 import LoginForm from './LoginForm/LoginForm';
+import {history} from '../layout/Navbar';
+
 // const onSuccess = response => console.log(response);
 // const onFailure = response => console.error(response);
 class Login extends Component{
@@ -30,17 +32,15 @@ class Login extends Component{
     componentDidMount() {
         // console.log(this.props.auth);
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/dashboard");
+          history.push("/dashboard");
         }
       }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-          this.props.history.push("/dashboard");
-        }
-        if (nextProps.errors) {
-          this.setState({ errors: nextProps.errors });
+      componentDidUpdate(){
+        if(this.props.auth.isAuthenticated){
+            history.push("/dashboard")
         }
     }
+
     handleChange = (e) => {
         e.preventDefault();
         const {formData} = this.state;
@@ -60,6 +60,8 @@ class Login extends Component{
             password
         }
         this.props.loginUser(creds,  this.props.history);
+     
+      
         // console.log(creds);
     }
     render(){

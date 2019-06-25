@@ -2,6 +2,7 @@ import Axios from '../Axios';
 import jwt_decode from 'jwt-decode';
 import { SET_CURRENT_USER, GET_ERRORS, GET_CURRENT_USER} from './types';
 import setAuthToken from './utils/setAuthToken';
+
 export const loginUser = userData => dispatch => {
     Axios.post('/users/login', userData)
         .then( res => {
@@ -12,10 +13,12 @@ export const loginUser = userData => dispatch => {
             sessionStorage.setItem("jwtToken", token);
             // set the auth token
             setAuthToken(token);
+            
             // decode the auth token
             const decoded = jwt_decode(token);
             // pass the decoded token
             dispatch(setCurrentUser(decoded))
+         
         })
         .catch(err => {
             if(err.response.data){
@@ -49,8 +52,8 @@ export const registerUser = (userData) => dispatch => {
         // decode the auth token
         const decoded = jwt_decode(token);
         // pass the decoded token
-        dispatch(setCurrentUser(decoded))     
-        // this.props.history.push("/dashboard")
+        dispatch(setCurrentUser(decoded)) 
+ 
       }).catch( err => {
         //  console.log(err.response.data.error[0].msg)
         Object.keys(err.response.data.error).forEach( (key) => {
@@ -89,8 +92,10 @@ export const googleLogin = (userData) => dispatch => {
 export const setCurrentUser = (decoded, dispatch) => {
     return{
         type:SET_CURRENT_USER,
-        payload:decoded
+        payload:decoded,
+        
     }
+    
 }
 export const logoutUser = () => dispatch => {
     // Remove token from sessionStorage

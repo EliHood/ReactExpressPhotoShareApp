@@ -10,6 +10,7 @@ import {getImages, deleteImage, uploadImage} from '../actions/imageActions';
 import dashboardStyles from '../styles/dashboardStyles';
 import {withStyles} from '@material-ui/core/styles';
 import {compose} from 'redux';
+
 class Dashboard extends Component{
     constructor(props){
         super(props);
@@ -133,3 +134,4 @@ const mapDispatchToProps = (dispatch) => ({
    uploadImage: (data) => dispatch(uploadImage(data))
 })
 export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(dashboardStyles))(Dashboard)
+// export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))
