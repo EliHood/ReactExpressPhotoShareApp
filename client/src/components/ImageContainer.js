@@ -69,7 +69,7 @@ class ImageContainer extends React.Component{
             : null}
             {/* hide delete button when user enters comment */}
             {/* if user_id is equal too the current_user id, user can delete there post. */}
-            {auth.current_user.user.id === img.user_id ? (
+            {this.props.auth.current_user.user.id === img.user_id ? (
                 <span>
                 {!this.state.isComment  ? <Button className={classes.deleteButton} onClick={deleteImg} variant="outlined" component="span" color="primary">
                     Delete

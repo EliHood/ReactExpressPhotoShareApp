@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 const Comment = (props) => (
     <div>
-    
         <form onSubmit={props.onSubmit}>
              <TextField
                 type="text"

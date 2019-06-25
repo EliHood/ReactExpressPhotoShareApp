@@ -4,8 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ImageUploader from 'react-images-upload';
-import ImageContainer from "./ImageContainer"
 import {connect} from 'react-redux';
+import ImageList from './ImageList';
 import {getImages, deleteImage, uploadImage} from '../actions/imageActions';
 import dashboardStyles from '../styles/dashboardStyles';
 import {withStyles} from '@material-ui/core/styles';
@@ -112,7 +112,7 @@ class Dashboard extends Component{
                         ):(
                             null
                         )}
-                    {image.images.length > 0 ? (
+                    {/* {image.images.length > 0 ? (
                             image.images.map( (img, i) => (   
                                 <div key={i}>
                                     <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)}/>
@@ -124,7 +124,9 @@ class Dashboard extends Component{
                                 <Typography>No Images yet</Typography>
                             </Grid>
                         </div>
-                    )}
+                    )} */}
+                    <ImageList images={image.images}/>
+
                 </Grid>
                 {/* Images  */}
             </Grid>
