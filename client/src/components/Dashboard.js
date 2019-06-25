@@ -112,19 +112,7 @@ class Dashboard extends Component{
                         ):(
                             null
                         )}
-                    {/* {image.images.length > 0 ? (
-                            image.images.map( (img, i) => (   
-                                <div key={i}>
-                                    <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)}/>
-                                </div>      
-                            ))
-                        ) : (
-                        <div>
-                            <Grid item md={8}>
-                                <Typography>No Images yet</Typography>
-                            </Grid>
-                        </div>
-                    )} */}
+            
                     <ImageList images={image.images}/>
 
                 </Grid>
