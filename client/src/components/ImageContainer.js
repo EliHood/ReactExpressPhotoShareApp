@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import Image from './Image';
+import Image from './Image/Image';
 import {compose} from 'redux';
 import moment from 'moment';
-import Comment from './Comment';
+import Comment from './Comment/Comment';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {connect} from 'react-redux';
@@ -15,6 +15,8 @@ import {postComment} from '../actions/imageActions';
 import {withStyles} from '@material-ui/core/styles';
 import imageStyles from '../styles/imageStyles';
 import LazyLoad from 'react-lazyload';
+import { CSSTransition } from 'react-transition-group';
+import InfiniteScroll from 'react-infinite-scroller';
 class ImageContainer extends React.Component{
     state = {
       isComment: false,
@@ -49,13 +51,14 @@ class ImageContainer extends React.Component{
     render(){
        const { img, deleteImg, classes} = this.props
        return(
-           <Grid item sm={12} md={12} className={classes.imageGridItem}>
+           <Grid  item sm={12} md={12} className={classes.imageGridItem}>
                <LazyLoad throttle={200} height={600}> 
                <Paper className={classes.imageContainerPaper}>
          {/* // empty image_title */}
                <Typography className={classes.imageTypographyTitle} variant="h4" align="center">{img.image_title}</Typography> 
                <Divider className={classes.imageDivider} variant="middle" />
-               <Image image_url={img.img_url} />   
+             
+                <Image image_url={img.img_url} /> 
                <Typography variant="h6" align="center">{img.user.username}</Typography> 
                <Typography variant="h6" align="center">{moment(img.created_at).calendar()}</Typography> 
                <Button onClick ={() => this.writeComment(img.id)} variant="outlined" component="span" color="primary"> 
@@ -108,7 +111,8 @@ class ImageContainer extends React.Component{
             )}
             </div>
         
-            </Paper>   
+            </Paper> 
+      
             </LazyLoad>                           
         </Grid>        
       )

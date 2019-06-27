@@ -1,6 +1,7 @@
 const myStyles = theme => ({
     imageGridItem:{
-        margin:' 30px 0px'
+        margin:' 30px 0px',
+       
     },
     imageContainerPaper:{
         padding:'20px 20px'

@@ -10,7 +10,7 @@ import {getImages, deleteImage, uploadImage} from '../actions/imageActions';
 import dashboardStyles from '../styles/dashboardStyles';
 import {withStyles} from '@material-ui/core/styles';
 import {compose} from 'redux';
-
+import InfiniteScroll from 'react-infinite-scroller';
 class Dashboard extends Component{
     constructor(props){
         super(props);
@@ -75,7 +75,8 @@ class Dashboard extends Component{
         const { image, classes} = this.props
         return(
             <div>
-            <Grid container justify="center">
+            <Grid style={{ height:'500px'}} container justify="center">
+        
                 <Grid item sm={8} md={6} className={classes.dashboardTitle}>
                     <Typography align="center" variant="h6">
                         Welcome to the Dashboard
@@ -118,6 +119,7 @@ class Dashboard extends Component{
 
                 </Grid>
                 {/* Images  */}
+               
             </Grid>
             </div>
         )

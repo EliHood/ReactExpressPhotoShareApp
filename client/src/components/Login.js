@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { GoogleLoginButton} from "react-social-login-buttons";
 import LoginForm from './LoginForm/LoginForm';
 import {history} from '../layout/Navbar';
+import requiredIf from 'react-required-if';
+
 
 // const onSuccess = response => console.log(response);
 // const onFailure = response => console.error(response);

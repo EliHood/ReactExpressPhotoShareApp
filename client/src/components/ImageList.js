@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 import {deleteImage} from '../actions/imageActions';
 import LazyLoad from 'react-lazyload';
+
 class ImageList extends Component {
     deleteImg = (id) => {
         this.props.deleteImage(id);
