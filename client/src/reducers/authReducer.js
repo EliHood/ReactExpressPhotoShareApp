@@ -15,12 +15,15 @@ export default  (state = initialState, action) => {
                 error: action.error
             }
         case USER_LOG_IN_SUCCESS:
+            console.log(action)
+            debugger;
             return {
                 ...state,
                 isAuthenticated: !isEmpty(action.token),
                 user:action.token,
                 errors:[]
             }
+      
         case GET_ERRORS:
             console.log(action.payload)
             // allows for us to loop through an array of errors.
