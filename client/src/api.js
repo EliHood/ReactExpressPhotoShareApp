@@ -3,6 +3,8 @@ export default {
     user:{
         loginUser: userData => 
             Axios.post('/users/login', userData).then(res => res.data),
+        registerUser: userData => 
+            Axios.post('/users/register', userData).then(res=> res.data),
         logoutUser: () => Axios.get('/users/logout').then(res => res.data),
         getUser:() => Axios.get('/users/current_user').then(res => res.data)
     },

@@ -3,13 +3,17 @@ import api from '../api';
 import { GET_IMAGES, POST_COMMENT,
      DELETE_IMAGE, UPLOAD_IMAGE } from '../actions/types';
 import {fetchImagesSuccess, uploadImageFailure, fetchImageFailure, uploadImageSuccess, deleteImageFailure, deleteImageSuccess, postCommentSuccess, postCommentFailure} from '../actions/imageActions';
+const delay = (ms) => new Promise(res => setTimeout(res, ms))
+
 export function* getImages(action){
     try{
         const images = yield call(api.images.fetchImages);
         console.log(images);
+        yield delay(1000)
         yield put(fetchImagesSuccess(images))
     }
     catch(error){
+        
         yield put(fetchImageFailure(error.response.data))
     }
 }

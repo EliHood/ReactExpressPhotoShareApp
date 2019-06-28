@@ -2,8 +2,8 @@ import { put, fork, takeLatest, call } from 'redux-saga/effects';
 import api from '../api';
 import setAuthToken from '../actions/utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import {  USER_LOG_OUT, LOGIN_USER,  GET_CURRENT_USER} from '../actions/types';
-import {userLogInSuccess, userLogOutFailure,currentUserSuccess, currentUserError, userLogOutSuccess, userLogInFailure} from '../actions/authActions';
+import {  USER_LOG_OUT, LOGIN_USER,  GET_CURRENT_USER, REGISTER_USER} from '../actions/types';
+import {userLogInSuccess, registerUserFailure, userLogOutFailure,currentUserSuccess, currentUserError, userLogOutSuccess, userLogInFailure, registerUserSuccess} from '../actions/authActions';
 export function* userLogin(action){
     try{
         // console.log(api.user.loginUser);
@@ -22,6 +22,25 @@ export function* userLogin(action){
     }
     catch(error){
         yield put(userLogInFailure(error.response.data));
+    }
+}
+
+export function* registerUser(action) {
+    try{
+        const user = yield call(api.user.registerUser, action.userData);
+        console.log(user);
+        const token = user.token
+
+        sessionStorage.setItem("jwtToken", token);
+        setAuthToken(token);
+
+        const decoded = jwt_decode(token);
+
+        yield put(registerUserSuccess(decoded));
+    }
+
+    catch(error){
+        yield put(registerUserFailure(error));
     }
 }
 export function* userLogout(action){
@@ -56,9 +75,13 @@ export function* watchUserLogOut() {
 export function* watchCurrentUser(){
     yield takeLatest(GET_CURRENT_USER, currentUser)
 }
+export function* watchUserRegister(){
+    yield takeLatest(REGISTER_USER, registerUser);
+}
 // export function* 
 export default function* () {
     yield fork(watchUserLogIn);
     yield fork( watchUserLogOut);
-    yield fork(watchCurrentUser)
+    yield fork(watchCurrentUser);
+    yield fork (watchUserRegister);
 }

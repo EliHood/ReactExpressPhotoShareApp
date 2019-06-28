@@ -1,4 +1,4 @@
-import { USER_LOG_OUT, CURRENT_USER_SUCCESS, USER_LOG_OUT_SUCCESS, USER_LOG_OUT_FAILURE, USER_LOG_IN_FAILURE ,  USER_LOG_IN_SUCCESS,  GET_ERRORS, GET_CURRENT_USER} from '../actions/types';
+import { USER_LOG_OUT, CURRENT_USER_SUCCESS, REGISTER_USER_FAILURE, REGISTER_USER_SUCCESS, USER_LOG_OUT_SUCCESS, USER_LOG_OUT_FAILURE, USER_LOG_IN_FAILURE ,  USER_LOG_IN_SUCCESS,  GET_ERRORS, GET_CURRENT_USER, REGISTER_USER} from '../actions/types';
 import isEmpty from '../actions/utils/isEmpty';
 const initialState = {
     isAuthenticated: false,
@@ -32,6 +32,24 @@ export default  (state = initialState, action) => {
                 ...state,
                 error: []
             };
+
+        case REGISTER_USER:
+            return {
+                ...state
+            }
+        case REGISTER_USER_SUCCESS:
+            console.log(action)
+            return {
+                ...state,
+                isAuthenticated: !isEmpty(action.data),
+                user:action.data,
+                errors:[]
+            }
+        case  REGISTER_USER_FAILURE:
+            return{
+                ...state,
+                isAuthenticated:false
+            }
         case USER_LOG_OUT_SUCCESS:
             return {
                 ...state,

@@ -58,13 +58,3 @@ export const postCommentFailure = (error) => ({
     type:POST_COMMENT_FAILURE,
     error
 })
-// post comment
-// export const postComment = data => {
-//     return async (dispatch) => {
-//         const url = await Axios.post('/images/newComment', data);
-//         const newComment = await url.data
-//         const id = data.id
-//         // console.log(newComment);
-//         dispatch({type:POST_COMMENT, newComment, id })
-//     }
-// }
