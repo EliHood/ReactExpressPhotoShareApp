@@ -6,11 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import ImageUploader from 'react-images-upload';
 import {connect} from 'react-redux';
 import ImageList from './ImageList';
-import {getImages, deleteImage, uploadImage} from '../actions/imageActions';
+import {fetchImages, deleteImage, uploadImage} from '../actions/imageActions';
 import dashboardStyles from '../styles/dashboardStyles';
 import {withStyles} from '@material-ui/core/styles';
 import {compose} from 'redux';
-import InfiniteScroll from 'react-infinite-scroller';
 class Dashboard extends Component{
     constructor(props){
         super(props);
@@ -30,13 +29,9 @@ class Dashboard extends Component{
         // data.append('ourImage', this.state.description)
         data.append('ourImage',image, this.state.description )
         this.props.uploadImage(data);
-        
         this.setState({
             description: ''
         })
-      
-
-        
     }
     handleChange = (e) => {
         // e.preventDefault();
@@ -46,11 +41,9 @@ class Dashboard extends Component{
         // console.log(this.state.description)
     }
     componentDidMount(){
-        this.props.getImages();
+        this.props.fetchImages();
         console.log(this.props.image.images);
     }
-
-
     onUploadClick = (e) => {
         e.preventDefault();
         this.setState({
@@ -76,7 +69,6 @@ class Dashboard extends Component{
         return(
             <div>
             <Grid style={{ height:'500px'}} container justify="center">
-        
                 <Grid item sm={8} md={6} className={classes.dashboardTitle}>
                     <Typography align="center" variant="h6">
                         Welcome to the Dashboard
@@ -114,24 +106,20 @@ class Dashboard extends Component{
                         ):(
                             null
                         )}
-            
                     <ImageList images={image.images}/>
-
                 </Grid>
                 {/* Images  */}
-               
             </Grid>
             </div>
         )
     }
 }
-
 const mapStateToProps = (state) => ({
    image: state.image,
    auth:state.auth
 })
 const mapDispatchToProps = (dispatch) => ({
-   getImages: () => dispatch(getImages()),
+    fetchImages: () => dispatch(fetchImages()),
    deleteImage : (id) => dispatch(deleteImage (id)),
    uploadImage: (data) => dispatch(uploadImage(data))
 })

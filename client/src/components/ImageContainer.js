@@ -15,8 +15,6 @@ import {postComment} from '../actions/imageActions';
 import {withStyles} from '@material-ui/core/styles';
 import imageStyles from '../styles/imageStyles';
 import LazyLoad from 'react-lazyload';
-import { CSSTransition } from 'react-transition-group';
-import InfiniteScroll from 'react-infinite-scroller';
 class ImageContainer extends React.Component{
     state = {
       isComment: false,

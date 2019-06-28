@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import { GoogleLoginButton} from "react-social-login-buttons";
 import LoginForm from './LoginForm/LoginForm';
 import {history} from '../layout/Navbar';
-import requiredIf from 'react-required-if';
 
 
 // const onSuccess = response => console.log(response);
@@ -38,9 +37,9 @@ class Login extends Component{
         }
       }
       componentDidUpdate(){
-        if(this.props.auth.isAuthenticated){
+         if(this.props.auth.isAuthenticated){
             history.push("/dashboard")
-        }
+         }
     }
 
     handleChange = (e) => {
@@ -61,7 +60,7 @@ class Login extends Component{
             username,
             password
         }
-        this.props.loginUser(creds,  this.props.history);
+        this.props.loginUser(creds);
      
       
         // console.log(creds);
@@ -139,6 +138,6 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (userData) => dispatch(loginUser(userData)),
-    googleLogin: (userData) => dispatch(googleLogin(userData))
+    // googleLogin: (userData) => dispatch(googleLogin(userData))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

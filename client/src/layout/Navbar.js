@@ -9,7 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {logoutUser} from '../actions/authActions';
+import {userLogOut} from '../actions/authActions';
 import SignUp from "../components/SignUp";
 import Grid from '@material-ui/core/Grid';
 import {createBrowserHistory} from 'history';
@@ -21,7 +21,7 @@ export const history = createBrowserHistory({forceRefresh:true})
 class Navbar extends Component {
     logout = (e) => {
         e.preventDefault();
-        this.props.logoutUser();
+        this.props.userLogOut();
         history.push('/login');
 
     }
@@ -100,7 +100,7 @@ class Navbar extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    logoutUser: () => dispatch(logoutUser())
+    userLogOut: () => dispatch(userLogOut())
 })
 const mapStateToProps = (state) => ({
     auth: state.auth
