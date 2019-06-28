@@ -5,6 +5,7 @@
 * Express
 * React
 * Redux
+* Redux Saga
 * Docker
 * Chai & Mocha for unit testing
 * Express Validator 
