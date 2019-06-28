@@ -51,6 +51,7 @@ export default  (state = initialState, action) => {
                 isAuthenticated:false
             }
         case USER_LOG_OUT_SUCCESS:
+            console.log(action)
             return {
                 ...state,
                 data: [],
