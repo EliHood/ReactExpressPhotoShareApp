@@ -15,8 +15,7 @@ export default  (state = initialState, action) => {
                 error: action.error
             }
         case USER_LOG_IN_SUCCESS:
-            console.log(action)
-            debugger;
+            console.log(action);
             return {
                 ...state,
                 isAuthenticated: !isEmpty(action.token),
