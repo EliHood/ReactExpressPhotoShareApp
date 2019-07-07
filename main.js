@@ -25,12 +25,12 @@ const store = new knexSession({
 
 const app = express();
 
-// declare before this build before anything
+// declare this build before routes and stuff. else it wont go to the routes. 
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/public/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 })
 
 app.use(cors({
