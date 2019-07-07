@@ -1,1 +1,1 @@
-web: npm run rollback && npm run migrate && npm start 
+web: npm start 

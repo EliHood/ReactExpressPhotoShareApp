@@ -59,7 +59,6 @@ export function* userLogout(action){
 export function* currentUser(action) {
     try{
         const user = yield call(api.user.getUser)
-        console.log(user);
         yield put(currentUserSuccess(user))
     }
     catch(error){

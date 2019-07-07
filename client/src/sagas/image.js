@@ -8,7 +8,7 @@ const delay = (ms) => new Promise(res => setTimeout(res, ms))
 export function* getImages(action){
     try{
         const images = yield call(api.images.fetchImages);
-        console.log(images);
+        // console.log(images);
         yield delay(1000)
         yield put(fetchImagesSuccess(images))
     }
