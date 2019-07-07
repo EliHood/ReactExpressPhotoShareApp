@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(logger('dev'));
 // For React Stuff if need be
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 //
 app.use(cookieParser());
