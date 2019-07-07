@@ -13,7 +13,6 @@ import './config/passport';
 import knex from 'knex';
 import config from './knexfile'
 import KnexSessionStore from 'connect-session-knex';
-
 const PORT = process.env.PORT || 3000
 const knexSession = KnexSessionStore(session);
 const herokuOrNot = process.env.NODE_ENV !== 'production' ? config.development : config.production
@@ -22,34 +21,32 @@ const store = new knexSession({
   knex:myKnex,
   // tablename:'sessions'
 })
-
 const app = express();
-
 // declare this build before routes and stuff. else it wont go to the routes. 
-
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/build/index.html'));
-})
 
 app.use(cors({
   origin:process.env.ALLOW_ORIGIN,
-  preflightContinue: false,
+  preflightContinue: true,
   credentials: true,
   allowedHeaders: 'X-Requested-With, Content-Type, Authorization',
   methods: 'GET, POST, PATCH, PUT, POST, DELETE, OPTIONS',
   exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
 }))
 
+if (process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  })
+
+}
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
-
 app.use(logger('dev'));
 // For React Stuff if need be
-
-
 //
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -60,9 +57,7 @@ app.use(session({
   resave:false,
   cookie: {   maxAge: 30 * 24 * 60 * 60 * 1000 },  // 30 days
   secret : process.env.JWT_SECRET,
-  
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended:false})); 
@@ -79,20 +74,12 @@ app.use(() => (req, res, next)  =>{
   console.log(res.locals.user);
   next();
 });
-
 app.use('/', function (req, res, next) {
   var n = req.session.views || 0
   req.session.views = ++n
   res.end(n + ' views')
   console.log(n);
 })
-
-
-//build mode
-//build mode
-
-
-
 // module.parent prevents the 
 // Node / Express: EADDRINUSE, Address already in use error when unit testing
 if(!module.parent){
@@ -100,5 +87,4 @@ if(!module.parent){
     console.log(`Example app listening on port ${process.env.PORT}!`),
   );
  }
-
 export default app;
