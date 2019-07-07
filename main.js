@@ -25,6 +25,22 @@ const store = new knexSession({
 
 const app = express();
 
+// declare before this build before anything
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/public/index.html'));
+})
+
+app.use(cors({
+  origin:process.env.ALLOW_ORIGIN,
+  preflightContinue: false,
+  credentials: true,
+  allowedHeaders: 'X-Requested-With, Content-Type, Authorization',
+  methods: 'GET, POST, PATCH, PUT, POST, DELETE, OPTIONS',
+  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+}))
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -32,10 +48,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(logger('dev'));
 // For React Stuff if need be
-app.use(express.static(path.join(__dirname, 'client/public')));
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// console.log(path.join(__dirname = 'client/build', 'index.html'));
 
 
 //
@@ -54,18 +66,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended:false})); 
-app.use(cors({
-  origin:process.env.ALLOW_ORIGIN,
-  credentials: true,
-  allowedHeaders: 'X-Requested-With, Content-Type, Authorization',
-  methods: 'GET, POST, PATCH, PUT, POST, DELETE, OPTIONS',
-  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-}))
-
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
-app.get('/favicon.ico', (req, res) => res.status(204));
 app.use('/users', userRoute);
 app.use('/images', imageRoute);
 // app.use('/images', imageRoute);
@@ -86,16 +89,8 @@ app.use('/', function (req, res, next) {
 
 
 //build mode
-// Serve static files from the React frontend app
+//build mode
 
-
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  //
-  app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build', 'index.html'));
-  })
-}
 
 
 // module.parent prevents the 
