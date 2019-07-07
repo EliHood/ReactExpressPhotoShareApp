@@ -25,14 +25,6 @@ const store = new knexSession({
 
 const app = express();
 
-app.use(cors({
-  origin:process.env.ALLOW_ORIGIN,
-  preflightContinue: false,
-  credentials: true,
-  allowedHeaders: 'X-Requested-With, Content-Type, Authorization',
-  methods: 'GET, POST, PATCH, PUT, POST, DELETE, OPTIONS',
-  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-}))
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -58,6 +50,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended:false})); 
+app.use(cors({
+  origin:process.env.ALLOW_ORIGIN,
+  credentials: true,
+  allowedHeaders: 'X-Requested-With, Content-Type, Authorization',
+  methods: 'GET, POST, PATCH, PUT, POST, DELETE, OPTIONS',
+  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+}))
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -85,6 +85,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/public/index.html'));
  
 })
+
+
 
 
 // module.parent prevents the 
