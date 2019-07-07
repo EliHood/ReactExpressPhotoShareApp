@@ -32,7 +32,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(logger('dev'));
 // For React Stuff if need be
+app.use(express.static(path.join(__dirname, 'client/public')));
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// console.log(path.join(__dirname = 'client/build', 'index.html'));
+
 
 //
 app.use(cookieParser());
@@ -61,6 +65,7 @@ app.use(cors({
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+app.get('/favicon.ico', (req, res) => res.status(204));
 app.use('/users', userRoute);
 app.use('/images', imageRoute);
 // app.use('/images', imageRoute);
@@ -82,13 +87,14 @@ app.use('/', function (req, res, next) {
 
 //build mode
 // Serve static files from the React frontend app
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
+
+
+if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  //
+  app.get('*', (req, res) => {
+    res.sendfile(path.join(__dirname = 'client/build', 'index.html'));
+  })
 }
 
 
