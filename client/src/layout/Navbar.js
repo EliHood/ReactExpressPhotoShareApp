@@ -88,7 +88,7 @@ class Navbar extends Component {
                     </AppBar>
                     <Switch>
                         <Route exact path="/" component={Home}/>
-                        <Route exact path="/signUp" component ={SignUp}/>
+                        <Route exact path="/signup" component ={SignUp}/>
                         <Route exact path="/login" component={Login}/> {/* private routes for users who are authenticated */}
                         <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
                         
