@@ -53,6 +53,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended:false})); 
 
+// call this line before routes
+
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.get('/', (req, res) => {
@@ -61,7 +63,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRoute);
 app.use('/images', imageRoute);
 
-
+// call this line of code after the routes. 
 app.use('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
