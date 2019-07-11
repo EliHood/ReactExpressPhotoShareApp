@@ -33,15 +33,6 @@ app.use(cors({
   exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
 }))
 
-if (process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'));
-  })
-
-}
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
@@ -61,13 +52,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended:false})); 
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 app.use('/users', userRoute);
 app.use('/images', imageRoute);
-// app.use('/images', imageRoute);
-// app.use('/comments', imageRoute);
+
+
+app.use('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
+
+
 app.use(() => (req, res, next)  =>{
   res.locals.user = req.user; // This is the important line
   // req.session.user = user
@@ -80,6 +79,8 @@ app.use('/', function (req, res, next) {
   res.end(n + ' views')
   console.log(n);
 })
+
+
 // module.parent prevents the 
 // Node / Express: EADDRINUSE, Address already in use error when unit testing
 if(!module.parent){

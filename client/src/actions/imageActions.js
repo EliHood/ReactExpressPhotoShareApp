@@ -4,7 +4,8 @@ import { GET_IMAGES, POST_COMMENT,
 // can be useful
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 export const fetchImages = () => ({
-     type:GET_IMAGES
+     type:GET_IMAGES,
+    
 })
 export const fetchImagesSuccess = (images) => ({
     type: FETCH_IMAGES_SUCCESS,

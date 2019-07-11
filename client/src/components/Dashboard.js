@@ -106,7 +106,14 @@ class Dashboard extends Component{
                         ):(
                             null
                         )}
-                    <ImageList images={image.images}/>
+                    
+                    {image.images ? (     
+                         <ImageList images={image.images}/>
+
+                    ):(
+                       <h1>stuff</h1>
+                    )}
+                   
                 </Grid>
                 {/* Images  */}
             </Grid>

@@ -8,8 +8,8 @@ const delay = (ms) => new Promise(res => setTimeout(res, ms))
 export function* getImages(action){
     try{
         const images = yield call(api.images.fetchImages);
-        // console.log(images);
-        yield delay(1000)
+        console.log(images); // this returns html for some reason
+        // debugger;
         yield put(fetchImagesSuccess(images))
     }
     catch(error){
@@ -48,8 +48,8 @@ export function* postComment(action){
     }
 }
 export function* watchImages() {
-    yield takeEvery(GET_IMAGES, getImages);
-  }
+    yield takeLatest(GET_IMAGES, getImages);
+}
 export function* watchCreateImage() {
     yield takeLatest(UPLOAD_IMAGE, uploadImage);
 }
