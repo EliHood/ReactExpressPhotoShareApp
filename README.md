@@ -17,6 +17,7 @@
 * Docker friendly
 * Users can add comments to images. 
 * Google login does not work yet, will work on it soon.
+* Heroku link should work now. 
 
 ## Knex
 * `npm run migrate`
