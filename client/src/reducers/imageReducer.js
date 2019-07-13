@@ -1,10 +1,11 @@
 import { 
 GET_IMAGES, UPLOAD_IMAGE_SUCCESS, POST_COMMENT_SUCCESS, 
 DELETE_IMAGE_FAILURE, FETCH_IMAGES_SUCCESS, 
-POST_COMMENT,
+POST_COMMENT, POST_LIKE, POST_LIKE_SUCCESS,
 DELETE_IMAGE, UPLOAD_IMAGE, DELETE_IMAGE_SUCCESS } from '../actions/types';
 const initialState = {
     images:[],
+    likedByuser: false
 }
 export default  (state = initialState, action) => {
     switch (action.type) {
@@ -55,6 +56,18 @@ export default  (state = initialState, action) => {
                 ...state,
                 error: action.error
             }
+        case POST_LIKE:
+            console.log(action)
+            return{
+                ...state
+            }
+        case POST_LIKE_SUCCESS:
+            console.log(action.data)
+            const newState = {...state};  // here I am trying to shallow  copy the existing state;
+            const existingLikesOfPost = newState.images.find(image => image.id === action.data).likes;
+            newState.images.find(image => image.id === action.data).likes = [...existingLikesOfPost, action.newLikeObject]; // using this approach I got some code duplication so I suggested the first approach of using **push** method of array.
+            // console.log(newState)
+            return newState;
         case POST_COMMENT:
            return{
                ...state

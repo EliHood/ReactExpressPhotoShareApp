@@ -23,6 +23,7 @@
     "body-parser": "^1.19.0",
     "bookshelf": "^0.14.2",
     "bookshelf-cascade-delete": "^2.0.1",
+    "bookshelf-soft-delete": "^5.0.0",
     "bookshelf-validate": "^2.0.3",
     "chai-http": "^4.3.0",
     "cloudinary": "^1.14.0",

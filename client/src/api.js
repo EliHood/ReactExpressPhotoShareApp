@@ -16,6 +16,9 @@ export default {
         deleteImage: id =>
             Axios.post(`/images/delete/${id}`).then(res => res.data),
         postComment: data =>
-           Axios.post('/images/newComment', data).then(res => res.data)
+           Axios.post('/images/newComment', data).then(res => res.data),
+        likePost: id => 
+            Axios.post(`/images/like/${id}`).then(res => res.data)
+
     }
 };

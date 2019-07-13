@@ -8,6 +8,7 @@ class ImageList extends Component {
     deleteImg = (id) => {
         this.props.deleteImage(id);
     }
+
     render(){
         const {images} = this.props
         return(

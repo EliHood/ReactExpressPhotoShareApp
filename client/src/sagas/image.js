@@ -1,8 +1,8 @@
 import { put, fork, takeLatest, takeEvery,  call } from 'redux-saga/effects';
 import api from '../api';
-import { GET_IMAGES, POST_COMMENT,
+import { GET_IMAGES, POST_COMMENT, POST_LIKE,
      DELETE_IMAGE, UPLOAD_IMAGE } from '../actions/types';
-import {fetchImagesSuccess, uploadImageFailure, fetchImageFailure, uploadImageSuccess, deleteImageFailure, deleteImageSuccess, postCommentSuccess, postCommentFailure} from '../actions/imageActions';
+import {fetchImagesSuccess, postLikeSuccess, uploadImageFailure, fetchImageFailure, uploadImageSuccess, deleteImageFailure, deleteImageSuccess, postCommentSuccess, postCommentFailure} from '../actions/imageActions';
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 export function* getImages(action){
@@ -47,6 +47,19 @@ export function* postComment(action){
         yield put(postCommentFailure(error.response.data))
     }
 }
+
+export function* postLike(action){
+    try{
+        const id = yield call(api.images.likePost, action.id);
+        console.log(id);
+        yield put( postLikeSuccess(id, action.id));
+
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 export function* watchImages() {
     yield takeLatest(GET_IMAGES, getImages);
 }
@@ -56,12 +69,18 @@ export function* watchCreateImage() {
 export function* watchDeleteImage() {
     yield takeLatest(DELETE_IMAGE, deleteImage);
 }
+
+export function* watchPostLike(){
+    yield takeLatest(POST_LIKE, postLike)
+}
+
 export function* watchPostComment(){
     yield takeLatest (POST_COMMENT, postComment)
 }
 export default function* () {
     yield fork(watchImages);
+    yield fork(watchPostLike);
     yield fork(watchCreateImage);
     yield fork(watchDeleteImage);
-    yield fork (watchPostComment);
+    yield fork(watchPostComment);
 }

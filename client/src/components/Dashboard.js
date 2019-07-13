@@ -107,12 +107,10 @@ class Dashboard extends Component{
                             null
                         )}
                     
-                    {image.images ? (     
+                    
                          <ImageList images={image.images}/>
 
-                    ):(
-                       <h1>stuff</h1>
-                    )}
+                  
                    
                 </Grid>
                 {/* Images  */}

@@ -11,16 +11,19 @@ import Comment from './Comment/Comment';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {connect} from 'react-redux';
-import {postComment} from '../actions/imageActions';
+import {postComment, postLike} from '../actions/imageActions';
 import {withStyles} from '@material-ui/core/styles';
 import imageStyles from '../styles/imageStyles';
+import Icon from '@material-ui/core/Icon';
 import LazyLoad from 'react-lazyload';
+import {Favorite, FavoriteBorder} from '@material-ui/icons';
 class ImageContainer extends React.Component{
     state = {
       isComment: false,
-      comment_body: ""
+      comment_body: "",
+      heart: false
     }
-
+   
     handleCommentChange = (e) => {
         this.setState({
            comment_body: e.target.value
@@ -30,6 +33,14 @@ class ImageContainer extends React.Component{
         this.setState({
             isComment: this.state.isComment ? '' : id // check if you state is filled to toggle on/off comment
         })   
+    }
+    postLike = (e, id) => {
+        e.preventDefault();
+        this.setState({
+            heart: !this.state.heart
+        })
+
+        this.props.postLike(id);
     }
     commentSubmit = (event, id) => {
         event.preventDefault();
@@ -44,10 +55,9 @@ class ImageContainer extends React.Component{
         this.setState({
             comment_body: ''
         })
-    
     }
     render(){
-       const { img, deleteImg, classes} = this.props
+       const { img, deleteImg, postLike, classes} = this.props
        return(
            <Grid  item sm={12} md={12} className={classes.imageGridItem}>
                <LazyLoad throttle={200} height={600}> 
@@ -55,7 +65,6 @@ class ImageContainer extends React.Component{
          {/* // empty image_title */}
                <Typography className={classes.imageTypographyTitle} variant="h4" align="center">{img.image_title}</Typography> 
                <Divider className={classes.imageDivider} variant="middle" />
-             
                 <Image image_url={img.img_url} /> 
                <Typography variant="h6" align="center">{img.user.username}</Typography> 
                <Typography variant="h6" align="center">{moment(img.created_at).calendar()}</Typography> 
@@ -80,8 +89,16 @@ class ImageContainer extends React.Component{
             ) : (
                 null
             )}
-
-           
+            <span  className={classes.likeButton} onClick = {(e) =>this.postLike(e, img.id)} style={{ cursor: 'pointer'}}>
+                {this.state.heart ?  
+                   <span >
+                        <Favorite style={{color: 'tomato'}}/>
+                    </span>
+                :<span >
+                    <FavoriteBorder/> 
+                </span> } 
+                {img.likes.length}
+            </span>
             {/* image comments */}
             {/* if have comments show Comments */}
             {img.comments.length > 0 ? <Typography className={classes.commentsTitle}  variant="h6" align="left">Commments </Typography> : null }
@@ -97,7 +114,6 @@ class ImageContainer extends React.Component{
                         </ListItem>
                         <Typography className={classes.commentUsername} variant="caption" align="left">{comment.user.username}</Typography> 
                         <Typography className={classes.commentDate} variant="caption" align="right">{moment(comment.created_at).calendar()}</Typography> 
-                        
                         <Divider variant="fullWidth" component="li" />
                         </List>
                     </div>       
@@ -108,9 +124,7 @@ class ImageContainer extends React.Component{
                 </div>
             )}
             </div>
-        
             </Paper> 
-      
             </LazyLoad>                           
         </Grid>        
       )
@@ -121,7 +135,7 @@ const mapStateToProps = (state) => ({
     auth: state.auth
  })
  const mapDispatchToProps = (dispatch) => ({
-    postComment: (data) => dispatch(postComment(data))
+    postComment: (data) => dispatch(postComment(data)),
+    postLike: (id) => dispatch(postLike(id))
  })
  export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(imageStyles))(ImageContainer)
- 

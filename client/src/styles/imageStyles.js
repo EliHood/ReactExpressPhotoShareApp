@@ -3,6 +3,11 @@ const myStyles = theme => ({
         margin:' 30px 0px',
        
     },
+    likeButton:{
+        padding:'30px 10px',
+        margin:'40px 20px',
+        float: 'right'
+    },
     imageContainerPaper:{
         padding:'20px 20px'
     },
