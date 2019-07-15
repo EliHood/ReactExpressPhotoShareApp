@@ -1,9 +1,8 @@
-import express from "express";
-import passport from "passport";
-import jwt from "jsonwebtoken";
-import cors from "cors";
-import { check, validationResult } from "express-validator/check";
-import User from "../models/User";
+import express from 'express';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import { check, validationResult } from 'express-validator/check';
+import User from '../models/User';
 
 const router = express.Router();
 
@@ -12,38 +11,34 @@ const router = express.Router();
 //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   User.forge()
     .fetchAll()
-    .then(users => {
+    .then((users) => {
       res.json(users.toJSON());
     });
 });
 
 router.post(
-  "/register",
+  '/register',
   [
-    check("password")
+    check('password')
       .isLength({ min: 6 })
-      .withMessage("must be at least 6 chars long"),
-    check("username").custom(value => {
-      return User.forge({ username: value })
-        .fetch()
-        .then(user => {
-          if (user) {
-            return Promise.reject("Username already in use");
-          }
-        });
-    }),
-    check("email").custom(value => {
-      return User.forge({ email: value })
-        .fetch()
-        .then(user => {
-          if (user) {
-            return Promise.reject("Email already in use");
-          }
-        });
-    })
+      .withMessage('must be at least 6 chars long'),
+    check('username').custom(value => User.forge({ username: value })
+      .fetch()
+      .then((user) => {
+        if (user) {
+          Promise.reject(new Error('Username already in use'));
+        }
+      })),
+    check('email').custom(value => User.forge({ email: value })
+      .fetch()
+      .then((user) => {
+        if (user) {
+          Promise.reject(new Error('Email already in use'));
+        }
+      })),
   ],
   (req, res, next) => {
     //  validating BEFORE A USER IS CREATED
@@ -52,7 +47,7 @@ router.post(
       return res.status(400).send({ error: errors.array() });
     }
     // then here a user is created.
-    passport.authenticate("register", (err, user, info) => {
+    passport.authenticate('register', (err, user, info) => {
       if (err) {
         console.log(err);
       }
@@ -60,37 +55,37 @@ router.post(
         console.log(info.message);
         res.status(403).send(info.message);
       } else {
-        req.logIn(user, err => {
+        req.logIn(user, (err) => {
           const data = {
             username: req.body.username.trim(),
             password: req.body.password.trim(),
-            email: req.body.email.trim()
+            email: req.body.email.trim(),
           };
           // console.log(data);
           // debugger;
           User.forge({
-            username: data.username
+            username: data.username,
           })
             .fetch()
-            .then(user => {
+            .then((user) => {
               const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-              jwt.verify(token, process.env.JWT_SECRET, function(err, data) {
+              jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
                 console.log(err, data);
               });
-              console.log("user created in db");
+              console.log('user created in db');
               res.status(200).send({
-                message: "user created",
+                message: 'user created',
                 token,
-                auth: true
+                auth: true,
               });
             });
         });
       }
     })(req, res, next);
-  }
+  },
 );
 
-router.get("/current_user", (req, res) => {
+router.get('/current_user', (req, res) => {
   if (req.user) {
     res.status(200).send({ user: req.user });
   } else {
@@ -99,17 +94,17 @@ router.get("/current_user", (req, res) => {
 });
 
 router.post(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] }),
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }),
   (req, res, next) => {
     User.forge({ email: req.body.email })
       .fetch()
-      .then(user => {
+      .then((user) => {
         // if user already exists,redirect
         if (user) {
           res.send({
             user,
-            success: true
+            success: true,
           });
         } else {
           jwt.sign(
@@ -119,13 +114,13 @@ router.post(
             (err, token) => {
               res.json({
                 success: true,
-                token
+                token,
               });
-            }
+            },
           );
         }
       });
-  }
+  },
 );
 
 // router.post('/auth/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -140,10 +135,10 @@ router.post(
 //   });
 
 router.post(
-  "/login",
-  passport.authenticate("login", { session: true }),
+  '/login',
+  passport.authenticate('login', { session: true }),
   (req, res, next) => {
-    passport.authenticate("login", (err, user, info) => {
+    passport.authenticate('login', (err, user, info) => {
       if (err) {
         console.log(err);
       }
@@ -151,12 +146,12 @@ router.post(
         console.log(info.message);
         res.status(401).send(info.message);
       } else {
-        req.logIn(user, err => {
+        req.logIn(user, (err) => {
           User.forge({
-            username: req.body.username
+            username: req.body.username,
           })
             .fetch()
-            .then(user => {
+            .then((user) => {
               const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
               jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
                 console.log(err, data);
@@ -164,16 +159,16 @@ router.post(
               res.status(200).send({
                 auth: true,
                 token,
-                message: "user found & logged in"
+                message: 'user found & logged in',
               });
             });
         });
       }
     })(req, res, next);
-  }
+  },
 );
 
-router.get("/current_user", (req, res) => {
+router.get('/current_user', (req, res) => {
   if (req.user) {
     res.status(200).send({ user: req.user });
   } else {
@@ -181,9 +176,9 @@ router.get("/current_user", (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
+router.get('/logout', (req, res) => {
   req.logOut();
-  res.status(200).send("user logged out");
+  res.status(200).send('user logged out');
 });
 
 export default router;

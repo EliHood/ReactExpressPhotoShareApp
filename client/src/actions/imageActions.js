@@ -7,20 +7,22 @@ export const fetchImages = () => ({
      type:GET_IMAGES,
     
 })
+
 export const fetchImagesSuccess = (images) => ({
     type: FETCH_IMAGES_SUCCESS,
     images
 })
 
-export const postLike = (id) => ({
+export const postLike = (data) => ({
     type: POST_LIKE,
-    id
+    data
 })
 
 export const postLikeSuccess = (id, data) => ({
     type: POST_LIKE_SUCCESS,
     data,
     id
+
 })
 
 
@@ -67,7 +69,8 @@ export const postCommentSuccess = (data, id) => ({
     type:POST_COMMENT_SUCCESS,
     data,
     id
-})
+    
+}) 
 export const postCommentFailure = (error) => ({
     type:POST_COMMENT_FAILURE,
     error

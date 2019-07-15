@@ -1,9 +1,9 @@
-import bookshelf from "../config/bookshelf";
-import User from "./User";
-import Image from "./Image";
+import bookshelf from '../config/bookshelf';
+import User from './User';
+import Image from './Image';
 
 const Comment = bookshelf.Model.extend({
-  tableName: "comments",
+  tableName: 'comments',
   timestamps: false,
   // this allows us to have user within comments{}
   user() {
@@ -11,7 +11,7 @@ const Comment = bookshelf.Model.extend({
   },
   images() {
     return this.belongsTo(Image);
-  }
+  },
 });
 
 export default Comment;

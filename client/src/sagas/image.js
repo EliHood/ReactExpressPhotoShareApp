@@ -50,9 +50,9 @@ export function* postComment(action){
 
 export function* postLike(action){
     try{
-        const id = yield call(api.images.likePost, action.id);
+        const id = yield call(api.images.likePost, action.data.id);
         console.log(id);
-        yield put( postLikeSuccess(id, action.id));
+        yield put( postLikeSuccess(id, action.data.newHeart));
 
     }
     catch(err){

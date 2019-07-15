@@ -1,16 +1,14 @@
-export const seed = (knex, Promise) => {
+export const seed = (knex, Promise) =>
   // Deletes ALL existing entries
-  return knex("users")
+  knex('users')
     .del()
-    .then(function() {
+    .then(() =>
       // Inserts seed entries
-      return knex("users").insert([
+      knex('users').insert([
         {
           id: 1,
-          username: "johnDoe",
-          password: "fish123",
-          email: "example@aol.com"
-        }
-      ]);
-    });
-};
+          username: 'johnDoe',
+          password: 'fish123',
+          email: 'example@aol.com',
+        },
+      ]));

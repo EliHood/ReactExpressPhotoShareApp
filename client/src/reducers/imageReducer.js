@@ -9,19 +9,10 @@ const initialState = {
 }
 export default  (state = initialState, action) => {
     switch (action.type) {
-        case GET_IMAGES:
-            return{
-                ...state,
-                // images:action.data
-            }
         case FETCH_IMAGES_SUCCESS:
             return{
                 ...state,
                 images:action.images
-            }
-        case UPLOAD_IMAGE:
-            return{
-                ...state
             }
         case UPLOAD_IMAGE_SUCCESS:
             const newImage = action.data
@@ -40,10 +31,6 @@ export default  (state = initialState, action) => {
                     },
                     ...state.images, // pass the previous images, 
                 ]   
-            }
-        case DELETE_IMAGE:
-            return{
-                ...state,
             }
         case DELETE_IMAGE_SUCCESS:
             // console.log(action)

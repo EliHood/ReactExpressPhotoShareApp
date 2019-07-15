@@ -40,7 +40,11 @@ class ImageContainer extends React.Component{
             heart: !this.state.heart
         })
 
-        this.props.postLike(id);
+        const newHeart = true 
+        const newData = {
+            id, newHeart
+        }
+        this.props.postLike(newData);
     }
     commentSubmit = (event, id) => {
         event.preventDefault();
@@ -89,7 +93,7 @@ class ImageContainer extends React.Component{
             ) : (
                 null
             )}
-            <span  className={classes.likeButton} onClick = {(e) =>this.postLike(e, img.id)} style={{ cursor: 'pointer'}}>
+            <span className={classes.likeButton} onClick = {(e) =>this.postLike(e, img.id)} style={{ cursor: 'pointer'}}>
                 {this.state.heart ?  
                    <span >
                         <Favorite style={{color: 'tomato'}}/>
@@ -97,7 +101,7 @@ class ImageContainer extends React.Component{
                 :<span >
                     <FavoriteBorder/> 
                 </span> } 
-                {img.likes.length}
+                {img.likes ? img.likes.length : null}
             </span>
             {/* image comments */}
             {/* if have comments show Comments */}
@@ -136,6 +140,6 @@ const mapStateToProps = (state) => ({
  })
  const mapDispatchToProps = (dispatch) => ({
     postComment: (data) => dispatch(postComment(data)),
-    postLike: (id) => dispatch(postLike(id))
+    postLike: (data) => dispatch(postLike(data))
  })
  export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(imageStyles))(ImageContainer)

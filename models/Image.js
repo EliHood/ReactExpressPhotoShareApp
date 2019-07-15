@@ -1,11 +1,11 @@
-import bookshelf from "../config/bookshelf";
-import User from "./User";
-import Comment from "./Comment";
-import Likes from "./Likes";
+import bookshelf from '../config/bookshelf';
+import User from './User';
+import Comment from './Comment';
+import Likes from './Likes';
 
 const Image = bookshelf.Model.extend(
   {
-    tableName: "images",
+    tableName: 'images',
     timestamps: false,
 
     user() {
@@ -18,10 +18,10 @@ const Image = bookshelf.Model.extend(
 
     likes() {
       return this.hasMany(Likes);
-    }
+    },
 
     // this deletes images despite having a comment or not
   },
-  { dependents: ["comments"] }
+  { dependents: ['comments'] },
 );
 export default Image;
