@@ -4,12 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ImageUploader from 'react-images-upload';
-import {connect} from 'react-redux';
 import ImageList from './ImageList';
-import {fetchImages, deleteImage, uploadImage} from '../actions/imageActions';
+import * as actionCreators from '../actions/imageActions';
+import ReduxContainer from '../reduxHOC';
 import dashboardStyles from '../styles/dashboardStyles';
-import {withStyles} from '@material-ui/core/styles';
-import {compose} from 'redux';
+import PropTypes from "prop-types";
 class Dashboard extends Component{
     constructor(props){
         super(props);
@@ -42,7 +41,7 @@ class Dashboard extends Component{
     }
     componentDidMount(){
         this.props.fetchImages();
-        console.log(this.props.image.images);
+        console.log(this.props.images);
     }
     onUploadClick = (e) => {
         e.preventDefault();
@@ -65,7 +64,7 @@ class Dashboard extends Component{
                 maxFileSize={5242880}
             />
         )
-        const { image, classes} = this.props
+        const { images, classes} = this.props
         return(
             <div>
             <Grid style={{ height:'500px'}} container justify="center">
@@ -106,12 +105,7 @@ class Dashboard extends Component{
                         ):(
                             null
                         )}
-                    
-                    
-                         <ImageList images={image.images}/>
-
-                  
-                   
+                         <ImageList images={images}/>
                 </Grid>
                 {/* Images  */}
             </Grid>
@@ -119,14 +113,38 @@ class Dashboard extends Component{
         )
     }
 }
+
+Dashboard.propTypes = {
+    fetchImages: PropTypes.func.isRequired,
+    deleteImage: PropTypes.func.isRequired,
+    uploadImage: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    // type checking array of objects
+    images: PropTypes.arrayOf(
+        PropTypes.shape({
+            commments: PropTypes.array.isRequired,
+            created_at:PropTypes.string.isRequired,
+            id: PropTypes.number,
+            image_title: PropTypes.string.isRequired,
+            image_url: PropTypes.string.isRequired,
+            likes: PropTypes.array.isRequired,
+            updated_at:PropTypes.string.isRequired,
+            user: PropTypes.object.isRequired,
+            user_id: PropTypes.number.isRequired
+        })
+
+    )
+
+}
+
 const mapStateToProps = (state) => ({
-   image: state.image,
+   images: state.image.images,
    auth:state.auth
 })
 const mapDispatchToProps = (dispatch) => ({
-    fetchImages: () => dispatch(fetchImages()),
-   deleteImage : (id) => dispatch(deleteImage (id)),
-   uploadImage: (data) => dispatch(uploadImage(data))
+    fetchImages: () => dispatch(actionCreators.fetchImages()),
+   deleteImage : (id) => dispatch(actionCreators.deleteImage(id)),
+   uploadImage: (data) => dispatch(actionCreators.uploadImage(data))
 })
-export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(dashboardStyles))(Dashboard)
-// export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))
+// HOC reduxContainer
+export default ReduxContainer(Dashboard, mapStateToProps, mapDispatchToProps, dashboardStyles)

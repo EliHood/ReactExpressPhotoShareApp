@@ -5,17 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Image from './Image/Image';
-import {compose} from 'redux';
 import moment from 'moment';
 import Comment from './Comment/Comment';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import {connect} from 'react-redux';
-import {postComment, postLike} from '../actions/imageActions';
-import {withStyles} from '@material-ui/core/styles';
+import * as actionCreators from '../actions/imageActions';
 import imageStyles from '../styles/imageStyles';
 import Icon from '@material-ui/core/Icon';
 import LazyLoad from 'react-lazyload';
+import ReduxContainer from '../reduxHOC';
 import {Favorite, FavoriteBorder} from '@material-ui/icons';
 class ImageContainer extends React.Component{
     state = {
@@ -139,7 +137,7 @@ const mapStateToProps = (state) => ({
     auth: state.auth
  })
  const mapDispatchToProps = (dispatch) => ({
-    postComment: (data) => dispatch(postComment(data)),
-    postLike: (data) => dispatch(postLike(data))
+    postComment: (data) => dispatch(actionCreators.postComment(data)),
+    postLike: (data) => dispatch(actionCreators.postLike(data))
  })
- export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(imageStyles))(ImageContainer)
+ export default ReduxContainer(ImageContainer, mapStateToProps, mapDispatchToProps, imageStyles)

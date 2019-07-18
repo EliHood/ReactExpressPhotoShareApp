@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from "prop-types";
 import Typography from '@material-ui/core/Typography';
 import SignUpForm from './SignUpForm/SignUpForm';
+import ReduxContainer from '../reduxHOC';
 class SignUp extends Component{
     constructor() {
         super();
@@ -186,4 +187,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     registerUser: (userData) => dispatch(registerUser(userData))
 })
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default ReduxContainer(SignUp, mapStateToProps, mapDispatchToProps);

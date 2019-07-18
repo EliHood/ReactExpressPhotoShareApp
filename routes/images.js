@@ -111,7 +111,6 @@ router.post('/like/:id', (req, res) => {
         // !newLike do not create a new row of likes if like from this user already exists
           if (!newLike) {
             Likes.forge().where({ user_id: req.user.id, image_id: id }).destroy();
-            Likes.forge().likedByme();
           }
           return res.status(500).json({ status: 'You already liked this post', like: newLike });
         }

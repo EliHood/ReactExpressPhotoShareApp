@@ -9,8 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { GoogleLoginButton} from "react-social-login-buttons";
 import LoginForm from './LoginForm/LoginForm';
 import {history} from '../layout/Navbar';
-
-
+import ReduxContainer from '../reduxHOC';
 // const onSuccess = response => console.log(response);
 // const onFailure = response => console.error(response);
 class Login extends Component{
@@ -140,4 +139,5 @@ const mapDispatchToProps = (dispatch) => ({
     loginUser: (userData) => dispatch(loginUser(userData)),
     // googleLogin: (userData) => dispatch(googleLogin(userData))
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+
+export default ReduxContainer(Login, mapStateToProps, mapDispatchToProps)

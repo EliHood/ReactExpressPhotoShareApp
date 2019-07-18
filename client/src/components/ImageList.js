@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 import {deleteImage} from '../actions/imageActions';
+import ReduxContainer from '../reduxHOC';
 class ImageList extends Component {
     deleteImg = (id) => {
         this.props.deleteImage(id);
@@ -31,4 +32,4 @@ class ImageList extends Component {
  const mapDispatchToProps = (dispatch) => ({
     deleteImage : (id) => dispatch(deleteImage (id)),
  })
- export default connect(null, mapDispatchToProps)(ImageList)
+ export default ReduxContainer(ImageList, null, mapDispatchToProps)
