@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import PropTypes from 'prop-types';
 const LoginForm = ({
   mySubmit, myChange, username, password,
 }) => (
@@ -34,5 +34,12 @@ const LoginForm = ({
   </form>
 
 );
+
+LoginForm.propTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  myChange: PropTypes.func.isRequired,
+  mySubmit: PropTypes.func.isRequired 
+};
 
 export default LoginForm;

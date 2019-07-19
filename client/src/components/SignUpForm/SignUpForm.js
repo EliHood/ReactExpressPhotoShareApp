@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import PropTypes from 'prop-types';
 const SignUpForm = props => (
   <form onSubmit={props.signSubmit}>
     <TextField
@@ -62,5 +62,22 @@ const SignUpForm = props => (
     </Button>
   </form>
 );
+
+SignUpForm.propTypes = {
+  signSubmit: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  usernameChange: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  handleEmail: PropTypes.func.isRequired,
+  password_error_text: PropTypes.string.isRequired,
+  passErr: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  handlePassword: PropTypes.func.isRequired,
+  passwordConf_error_text: PropTypes.string.isRequired,
+  passwordConfpassErr: PropTypes.string.isRequired,
+  passwordConf: PropTypes.string.isRequired,
+  handlePasswordConf: PropTypes.func.isRequired,
+  validation: PropTypes.object.isRequired
+}
 
 export default SignUpForm;
