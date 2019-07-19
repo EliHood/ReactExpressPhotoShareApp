@@ -1,7 +1,12 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Image = (props) => (
-    <img width="100%" height="100%" alt="stuff" src = {props.image_url} />
-)
+const Image = props => (
+  <img width="100%" height="100%" alt="stuff" src={props.image_url} />
+);
 
-export default Image
+
+Image.propTypes = {
+  image_url: PropTypes.string.isRequired,
+};
+export default Image;

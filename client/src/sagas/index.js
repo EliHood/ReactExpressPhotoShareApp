@@ -3,5 +3,5 @@ import image from './image';
 
 export default [
   auth,
-  image
+  image,
 ];
