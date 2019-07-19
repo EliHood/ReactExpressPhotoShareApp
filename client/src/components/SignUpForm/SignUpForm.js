@@ -65,19 +65,19 @@ const SignUpForm = props => (
 
 SignUpForm.propTypes = {
   signSubmit: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
   usernameChange: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
   handleEmail: PropTypes.func.isRequired,
-  password_error_text: PropTypes.string.isRequired,
-  passErr: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
+  password_error_text: PropTypes.string,
+  passErr: PropTypes.string,
+  password: PropTypes.string,
   handlePassword: PropTypes.func.isRequired,
-  passwordConf_error_text: PropTypes.string.isRequired,
-  passwordConfpassErr: PropTypes.string.isRequired,
-  passwordConf: PropTypes.string.isRequired,
+  passwordConf_error_text: PropTypes.string,
+  passwordConfpassErr: PropTypes.string,
+  passwordConf: PropTypes.string,
   handlePasswordConf: PropTypes.func.isRequired,
-  validation: PropTypes.object.isRequired
+  validation: PropTypes.bool.isRequired
 }
 
 export default SignUpForm;

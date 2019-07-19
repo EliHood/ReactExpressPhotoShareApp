@@ -36,8 +36,8 @@ const LoginForm = ({
 );
 
 LoginForm.propTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
+  username: PropTypes.string,
+  password: PropTypes.string,
   myChange: PropTypes.func.isRequired,
   mySubmit: PropTypes.func.isRequired 
 };
