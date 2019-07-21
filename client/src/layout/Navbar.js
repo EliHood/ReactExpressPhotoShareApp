@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import {
   Router, Link, Route, Switch,
 } from 'react-router-dom';
-import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { createBrowserHistory } from 'history';
-import { userLogOut } from '../actions/authActions';
 import SignUp from '../containers/signup';
 import Login from '../containers/login';
-import Dashboard from '../containers/dashboard'
+import Dashboard from '../containers/dashboard';
 import Home from '../components/Home';
 import PrivateRoute from '../components/PrivateRoute';
 // import createBrowserHistory from 'history/createBrowserHistory'
@@ -23,6 +21,7 @@ class Navbar extends Component {
       this.props.userLogOut();
       history.push('/login');
     }
+
     render() {
       // LINKS
       const authLinks = (
@@ -87,4 +86,4 @@ class Navbar extends Component {
       );
     }
 }
-export default Navbar
+export default Navbar;

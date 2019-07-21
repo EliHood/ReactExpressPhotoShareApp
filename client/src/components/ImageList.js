@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import ImageContainer from '../containers/image'
+import ImageContainer from '../containers/image';
+
 class ImageList extends Component {
     deleteImg = (id) => {
       this.props.deleteImage(id);
     }
+
     render() {
       const { images } = this.props;
       return (

@@ -21,22 +21,26 @@ class Login extends Component {
       errors: {},
     };
   }
+
     logInGithub = (e) => {
       e.preventDefault();
       console.log('hello');
       this.props.githubLogin();
     }
+
     componentDidMount() {
       // console.log(this.props.auth);
       if (this.props.auth.isAuthenticated) {
         history.push('/dashboard');
       }
     }
+
     componentDidUpdate() {
       if (this.props.auth.isAuthenticated) {
         history.push('/dashboard');
       }
     }
+
     handleChange = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -47,6 +51,7 @@ class Login extends Component {
         },
       });
     }
+
     handleSubmit = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -58,6 +63,7 @@ class Login extends Component {
       this.props.loginUser(creds);
       // console.log(creds);
     }
+
     render() {
       const googleLogin = (response) => {
         let googleData;

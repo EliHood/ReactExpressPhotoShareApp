@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import SignUpForm from './SignUpForm/SignUpForm';
+
 class SignUp extends Component {
   constructor() {
     super();
@@ -21,12 +22,14 @@ class SignUp extends Component {
       passwordConfpassErr: null,
     };
   }
+
   componentDidMount() {
     // console.log(this.props.auth);
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
   }
+
   //   this line is magic, redirects to the dashboard after user signs up
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
@@ -36,6 +39,7 @@ class SignUp extends Component {
       this.setState({ errors: nextProps.errors });
     }
   }
+
   handleUsername= (e) => {
     e.preventDefault();
     const { formData } = this.state;
@@ -46,6 +50,7 @@ class SignUp extends Component {
       },
     });
   }
+
   handleEmail= (e) => {
     e.preventDefault();
     const { formData } = this.state;
@@ -56,6 +61,7 @@ class SignUp extends Component {
       },
     });
   }
+
   handlePassword = (e) => {
     e.preventDefault();
     const { formData } = this.state;
@@ -66,6 +72,7 @@ class SignUp extends Component {
       },
     });
   }
+
   handlePasswordConf = (e) => {
     e.preventDefault();
     const { formData } = this.state;
@@ -76,6 +83,7 @@ class SignUp extends Component {
       },
     });
   }
+
     handleSubmit = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -100,6 +108,7 @@ class SignUp extends Component {
         this.setState({ passErr: "Passwords Don't Match" });
       }
     }
+
     componentDidUpdate(prevProps, prevState) {
       if (this.state.formData.password.length !== prevState.formData.password.length) {
         if (this.state.formData.password.length <= 6) {
@@ -116,6 +125,7 @@ class SignUp extends Component {
         }
       }
     }
+
     render() {
       // debugger;
       // console.log(this.state.formData.password)

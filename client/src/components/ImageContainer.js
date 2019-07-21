@@ -12,22 +12,26 @@ import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import Comment from './Comment/Comment';
 import Image from './Image/Image';
+
 class ImageContainer extends React.Component {
     state = {
       isComment: false,
       comment_body: '',
       heart: false,
     }
+
     handleCommentChange = (e) => {
       this.setState({
         comment_body: e.target.value,
       });
     }
+
     writeComment = (id) => {
       this.setState({
         isComment: this.state.isComment ? '' : id, // check if you state is filled to toggle on/off comment
       });
     }
+
     postLike = (e, id) => {
       e.preventDefault();
       this.setState({
@@ -39,6 +43,7 @@ class ImageContainer extends React.Component {
       };
       this.props.postLike(newData);
     }
+
     commentSubmit = (event, id) => {
       event.preventDefault();
       console.log(this.state.comment_body); // doesn't get console.log
@@ -53,6 +58,7 @@ class ImageContainer extends React.Component {
         comment_body: '',
       });
     }
+
     render() {
       const {
         img, deleteImg, postLike, classes,
