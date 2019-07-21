@@ -10,44 +10,35 @@ import ListItem from '@material-ui/core/ListItem';
 import LazyLoad from 'react-lazyload';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import * as actionCreators from '../actions/imageActions';
-import imageStyles from '../styles/imageStyles';
-import ReduxContainer from '../reduxHOC';
 import Comment from './Comment/Comment';
 import Image from './Image/Image';
-
 class ImageContainer extends React.Component {
     state = {
       isComment: false,
       comment_body: '',
       heart: false,
     }
-
     handleCommentChange = (e) => {
       this.setState({
         comment_body: e.target.value,
       });
     }
-
     writeComment = (id) => {
       this.setState({
         isComment: this.state.isComment ? '' : id, // check if you state is filled to toggle on/off comment
       });
     }
-
     postLike = (e, id) => {
       e.preventDefault();
       this.setState({
         heart: !this.state.heart,
       });
-
       const newHeart = true;
       const newData = {
         id, newHeart,
       };
       this.props.postLike(newData);
     }
-
     commentSubmit = (event, id) => {
       event.preventDefault();
       console.log(this.state.comment_body); // doesn't get console.log
@@ -62,7 +53,6 @@ class ImageContainer extends React.Component {
         comment_body: '',
       });
     }
-
     render() {
       const {
         img, deleteImg, postLike, classes,
@@ -149,18 +139,8 @@ class ImageContainer extends React.Component {
       );
     }
 }
-
 ImageContainer.propTypes = {
   postComment: PropTypes.func.isRequired,
   postLike: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = state => ({
-  image: state.image,
-  auth: state.auth,
-});
-const mapDispatchToProps = dispatch => ({
-  postComment: data => dispatch(actionCreators.postComment(data)),
-  postLike: data => dispatch(actionCreators.postLike(data)),
-});
-export default ReduxContainer(ImageContainer, mapStateToProps, mapDispatchToProps, imageStyles);
+export default ImageContainer;

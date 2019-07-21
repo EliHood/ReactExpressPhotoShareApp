@@ -3,7 +3,7 @@ import './App.css';
 import jwt_decode from 'jwt-decode';
 import { Provider } from 'react-redux';
 import setAuthToken from './actions/utils/setAuthToken';
-import Navbar from './layout/Navbar';
+import Navbar from './containers/navbar';
 import store from './store';
 import { userLogInSuccess, userLogOut, getUser } from './actions/authActions';
 // JWT TOKEN

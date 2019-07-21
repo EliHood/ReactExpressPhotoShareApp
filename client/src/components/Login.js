@@ -5,10 +5,8 @@ import { GoogleLogin } from 'react-google-login';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { GoogleLoginButton } from 'react-social-login-buttons';
-import { loginUser, googleLogin } from '../actions/authActions';
 import LoginForm from './LoginForm/LoginForm';
 import { history } from '../layout/Navbar';
-import ReduxContainer from '../reduxHOC';
 // const onSuccess = response => console.log(response);
 // const onFailure = response => console.error(response);
 class Login extends Component {
@@ -23,26 +21,22 @@ class Login extends Component {
       errors: {},
     };
   }
-
     logInGithub = (e) => {
       e.preventDefault();
       console.log('hello');
       this.props.githubLogin();
     }
-
     componentDidMount() {
       // console.log(this.props.auth);
       if (this.props.auth.isAuthenticated) {
         history.push('/dashboard');
       }
     }
-
     componentDidUpdate() {
       if (this.props.auth.isAuthenticated) {
         history.push('/dashboard');
       }
     }
-
     handleChange = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -53,7 +47,6 @@ class Login extends Component {
         },
       });
     }
-
     handleSubmit = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -65,7 +58,6 @@ class Login extends Component {
       this.props.loginUser(creds);
       // console.log(creds);
     }
-
     render() {
       const googleLogin = (response) => {
         let googleData;
@@ -133,11 +125,4 @@ Login.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object,
 };
-const mapStateToProps = state => ({
-  auth: state.auth,
-});
-const mapDispatchToProps = dispatch => ({
-  loginUser: userData => dispatch(loginUser(userData)),
-  // googleLogin: (userData) => dispatch(googleLogin(userData))
-});
-export default ReduxContainer(Login, mapStateToProps, mapDispatchToProps);
+export default Login;

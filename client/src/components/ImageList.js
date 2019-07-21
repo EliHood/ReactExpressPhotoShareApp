@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import ImageContainer from './ImageContainer';
-import { deleteImage } from '../actions/imageActions';
-import ReduxContainer from '../reduxHOC';
-
+import ImageContainer from '../containers/image'
 class ImageList extends Component {
     deleteImg = (id) => {
       this.props.deleteImage(id);
     }
-
     render() {
       const { images } = this.props;
       return (
@@ -30,12 +26,7 @@ class ImageList extends Component {
       );
     }
 }
-
 ImageList.propTypes = {
   deleteImage: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = dispatch => ({
-  deleteImage: id => dispatch(deleteImage(id)),
-});
-export default ReduxContainer(ImageList, null, mapDispatchToProps);
+export default ImageList;

@@ -5,11 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ImageUploader from 'react-images-upload';
 import PropTypes from 'prop-types';
-import ImageList from './ImageList';
-import * as actionCreators from '../actions/imageActions';
-import ReduxContainer from '../reduxHOC';
-import dashboardStyles from '../styles/dashboardStyles';
-
+import ImageList from '../containers/imagelist';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +18,6 @@ class Dashboard extends Component {
       comment_body: '',
     };
   }
-
     handleUpload = (file) => {
       const data = new FormData();
       const image = file[0];
@@ -34,7 +29,6 @@ class Dashboard extends Component {
         description: '',
       });
     }
-
     handleChange = (e) => {
       // e.preventDefault();
       this.setState({
@@ -42,23 +36,19 @@ class Dashboard extends Component {
       });
       // console.log(this.state.description)
     }
-
     componentDidMount() {
       this.props.fetchImages();
       console.log(this.props.images);
     }
-
     onUploadClick = (e) => {
       e.preventDefault();
       this.setState({
         upload: !this.state.upload,
       });
     }
-
     deleteImg = (id) => {
       this.props.deleteImage(id);
     }
-
     render() {
       const uploader = (
         <ImageUploader
@@ -150,14 +140,4 @@ Dashboard.propTypes = {
     }),
   ),
 };
-const mapStateToProps = state => ({
-  images: state.image.images,
-  auth: state.auth,
-});
-const mapDispatchToProps = dispatch => ({
-  fetchImages: () => dispatch(actionCreators.fetchImages()),
-  deleteImage: id => dispatch(actionCreators.deleteImage(id)),
-  uploadImage: data => dispatch(actionCreators.uploadImage(data)),
-});
-// HOC reduxContainer
-export default ReduxContainer(Dashboard, mapStateToProps, mapDispatchToProps, dashboardStyles);
+export default Dashboard

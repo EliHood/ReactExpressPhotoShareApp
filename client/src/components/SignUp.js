@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { registerUser } from '../actions/authActions';
 import SignUpForm from './SignUpForm/SignUpForm';
-import ReduxContainer from '../reduxHOC';
-
 class SignUp extends Component {
   constructor() {
     super();
@@ -24,14 +21,12 @@ class SignUp extends Component {
       passwordConfpassErr: null,
     };
   }
-
   componentDidMount() {
     // console.log(this.props.auth);
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
   }
-
   //   this line is magic, redirects to the dashboard after user signs up
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
@@ -41,52 +36,46 @@ class SignUp extends Component {
       this.setState({ errors: nextProps.errors });
     }
   }
-
-    handleUsername= (e) => {
-      e.preventDefault();
-      const { formData } = this.state;
-      this.setState({
-        formData: {
-          ...formData,
-          username: e.target.value,
-        },
-      });
-    }
-
-    handleEmail= (e) => {
-      e.preventDefault();
-      const { formData } = this.state;
-      this.setState({
-        formData: {
-          ...formData,
-          email: e.target.value,
-        },
-      });
-    }
-
-    handlePassword = (e) => {
-      e.preventDefault();
-      const { formData } = this.state;
-      this.setState({
-        formData: {
-          ...formData,
-          password: e.target.value,
-        },
-      });
-    }
-
-    handlePasswordConf = (e) => {
-      e.preventDefault();
-      const { formData } = this.state;
-      this.setState({
-        formData: {
-          ...formData,
-          passwordConf: e.target.value,
-        },
-
-      });
-    }
-
+  handleUsername= (e) => {
+    e.preventDefault();
+    const { formData } = this.state;
+    this.setState({
+      formData: {
+        ...formData,
+        username: e.target.value,
+      },
+    });
+  }
+  handleEmail= (e) => {
+    e.preventDefault();
+    const { formData } = this.state;
+    this.setState({
+      formData: {
+        ...formData,
+        email: e.target.value,
+      },
+    });
+  }
+  handlePassword = (e) => {
+    e.preventDefault();
+    const { formData } = this.state;
+    this.setState({
+      formData: {
+        ...formData,
+        password: e.target.value,
+      },
+    });
+  }
+  handlePasswordConf = (e) => {
+    e.preventDefault();
+    const { formData } = this.state;
+    this.setState({
+      formData: {
+        ...formData,
+        passwordConf: e.target.value,
+      },
+    });
+  }
     handleSubmit = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -111,7 +100,6 @@ class SignUp extends Component {
         this.setState({ passErr: "Passwords Don't Match" });
       }
     }
-
     componentDidUpdate(prevProps, prevState) {
       if (this.state.formData.password.length !== prevState.formData.password.length) {
         if (this.state.formData.password.length <= 6) {
@@ -128,7 +116,6 @@ class SignUp extends Component {
         }
       }
     }
-
     render() {
       // debugger;
       // console.log(this.state.formData.password)
@@ -163,7 +150,6 @@ class SignUp extends Component {
                 {this.state.passErr}
               </div>
               )}
-
               <SignUpForm
                 signSubmit={this.handleSubmit}
                 username={this.state.username}
@@ -181,7 +167,6 @@ class SignUp extends Component {
                 validation={validation.validation}
               />
             </Grid>
-
           </Grid>
         </div>
       );
@@ -191,10 +176,4 @@ SignUp.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
-  auth: state.auth,
-});
-const mapDispatchToProps = dispatch => ({
-  registerUser: userData => dispatch(registerUser(userData)),
-});
-export default ReduxContainer(SignUp, mapStateToProps, mapDispatchToProps);
+export default SignUp;
