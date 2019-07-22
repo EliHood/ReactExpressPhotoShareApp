@@ -1,3 +1,7 @@
+// the purpose of this file is to prevent duplicate code
+// We will be doing the same functionalies in SignUp and Login file. 
+// So using a high order component is a no brainer solution to prevent from writing duplicate
+// code
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
@@ -10,19 +14,18 @@ export default function (WrappedComponent) {
         }
     }
     componentDidMount() {
-        // console.log(this.props.auth);
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
+      if (this.props.auth.isAuthenticated) {
+        this.props.history.push('/dashboard');
         }
     }
     //   this line is magic, redirects to the dashboard after user signs up
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
-        }
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors});
-        }
+      if (nextProps.auth.isAuthenticated) {
+        this.props.history.push('/dashboard');
+      }
+      if (nextProps.errors) {
+        this.setState({errors: nextProps.errors});
+      }
     }
     render(){
         return(
