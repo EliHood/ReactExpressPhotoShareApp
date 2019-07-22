@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { GoogleLoginButton } from 'react-social-login-buttons';
 import LoginForm from './LoginForm/LoginForm';
-import { history } from '../layout/Navbar';
+import IsAuth from '../isAuthenticatedHoc';
 // const onSuccess = response => console.log(response);
 // const onFailure = response => console.error(response);
 class Login extends Component {
@@ -18,7 +18,6 @@ class Login extends Component {
         password: '',
         isAuthenticated: false,
       },
-      errors: {},
     };
   }
 
@@ -28,18 +27,7 @@ class Login extends Component {
       this.props.githubLogin();
     }
 
-    componentDidMount() {
-      // console.log(this.props.auth);
-      if (this.props.auth.isAuthenticated) {
-        history.push('/dashboard');
-      }
-    }
 
-    componentDidUpdate() {
-      if (this.props.auth.isAuthenticated) {
-        history.push('/dashboard');
-      }
-    }
 
     handleChange = (e) => {
       e.preventDefault();
@@ -131,4 +119,4 @@ Login.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object,
 };
-export default Login;
+export default IsAuth(Login);

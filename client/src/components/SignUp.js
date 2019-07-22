@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import SignUpForm from './SignUpForm/SignUpForm';
+import IsAuth from '../isAuthenticatedHoc';
 
 class SignUp extends Component {
   constructor() {
@@ -16,28 +17,10 @@ class SignUp extends Component {
         isAuthenticated: false,
       },
       password_error_text: '',
-      errors: {},
       passErr: null,
       passwordConf_error_text: '',
       passwordConfpassErr: null,
     };
-  }
-
-  componentDidMount() {
-    // console.log(this.props.auth);
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-  }
-
-  //   this line is magic, redirects to the dashboard after user signs up
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
   }
 
   handleUsername= (e) => {
@@ -186,4 +169,4 @@ SignUp.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
-export default SignUp;
+export default IsAuth(SignUp);
