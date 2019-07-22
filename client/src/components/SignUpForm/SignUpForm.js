@@ -3,14 +3,20 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
-const SignUpForm = props => (
-  <form onSubmit={props.signSubmit}>
+const SignUpForm = ({
+  signSubmit, myChange, username, password, email,
+  passErr,password_error_text,
+  passwordConf_error_text,
+  passwordConfpassErr, passwordConf,
+  validation
+}) => (
+  <form onSubmit={signSubmit}>
     <TextField
       label="Username"
       style={{ width: '100%' }}
       name="username"
-      value={props.username}
-      onChange={props.usernameChange}
+      value={username}
+      onChange={myChange}
       margin="normal"
     />
     <br />
@@ -19,8 +25,8 @@ const SignUpForm = props => (
       className=""
       style={{ width: '100%' }}
       name="email"
-      value={props.email}
-      onChange={props.handleEmail}
+      value={email}
+      onChange={myChange}
       margin="normal"
     />
     <br />
@@ -28,12 +34,12 @@ const SignUpForm = props => (
       label="Password"
       name="password"
       type="password"
-      helperText={props.password_error_text}
+      helperText={password_error_text}
       style={{ width: '100%' }}
-      error={props.passErr}
+      error={passErr}
       className=""
-      value={props.password}
-      onChange={props.handlePassword}
+      value={password}
+      onChange={myChange}
       margin="normal"
     />
     {/*  */}
@@ -42,24 +48,24 @@ const SignUpForm = props => (
       label="Confirm Password"
       name="passwordConf"
       type="password"
-      helperText={props.passwordConf_error_text}
-      error={props.passwordConfpassErr}
+      helperText={passwordConf_error_text}
+      error={passwordConfpassErr}
       style={{ width: '100%' }}
       className=""
-      value={props.passwordConf}
-      onChange={props.handlePasswordConf}
+      value={passwordConf}
+      onChange={myChange}
       margin="normal"
     />
     <br />
     <br />
 
     <Button
-      disabled={props.validation}
+      disabled={validation}
       variant="outlined"
       color="primary"
       type="submit"
     >
-                Sign Up
+        Sign Up
     </Button>
   </form>
 );

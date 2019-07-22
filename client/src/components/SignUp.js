@@ -23,49 +23,17 @@ class SignUp extends Component {
     };
   }
 
-  handleUsername= (e) => {
+  handleChange = (e) => {
     e.preventDefault();
     const { formData } = this.state;
     this.setState({
       formData: {
         ...formData,
-        username: e.target.value,
+        [e.target.name]: e.target.value,
       },
     });
   }
 
-  handleEmail= (e) => {
-    e.preventDefault();
-    const { formData } = this.state;
-    this.setState({
-      formData: {
-        ...formData,
-        email: e.target.value,
-      },
-    });
-  }
-
-  handlePassword = (e) => {
-    e.preventDefault();
-    const { formData } = this.state;
-    this.setState({
-      formData: {
-        ...formData,
-        password: e.target.value,
-      },
-    });
-  }
-
-  handlePasswordConf = (e) => {
-    e.preventDefault();
-    const { formData } = this.state;
-    this.setState({
-      formData: {
-        ...formData,
-        passwordConf: e.target.value,
-      },
-    });
-  }
 
     handleSubmit = (e) => {
       e.preventDefault();
@@ -146,17 +114,14 @@ class SignUp extends Component {
               <SignUpForm
                 signSubmit={this.handleSubmit}
                 username={this.state.username}
-                usernameChange={this.handleUsername}
+                myChange={this.handleChange}
                 email={this.state.email}
-                handleEmail={this.handleEmail}
                 password_error_text={this.state.password_error_text}
                 passErr={this.state.passErr}
                 password={this.state.password}
-                handlePassword={this.handlePassword}
                 passwordConf_error_text={this.state.passwordConf_error_text}
                 passwordConfpassErr={this.state.passwordConfpassErr}
                 passwordConf={this.state.passwordConf}
-                handlePasswordConf={this.handlePasswordConf}
                 validation={validation.validation}
               />
             </Grid>
