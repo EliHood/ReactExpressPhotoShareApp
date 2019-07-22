@@ -20,15 +20,6 @@ class Login extends Component {
       },
     };
   }
-
-    logInGithub = (e) => {
-      e.preventDefault();
-      console.log('hello');
-      this.props.githubLogin();
-    }
-
-
-
     handleChange = (e) => {
       e.preventDefault();
       const { formData } = this.state;
