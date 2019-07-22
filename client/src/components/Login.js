@@ -78,7 +78,7 @@ class Login extends Component {
               />
               <Grid item sm={12}>
                 <Typography align="center" variant="h4" style={{ letterSpacing: '6px' }}>
-                                OR
+                  OR
                 </Typography>
                 <Divider style={{ width: '200px', margin: '20px auto', backgroundColor: '#000000' }} variant="middle" />
               </Grid>
