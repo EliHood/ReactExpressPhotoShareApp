@@ -4,6 +4,7 @@ import {
   DELETE_IMAGE,
   UPLOAD_IMAGE,
   LIKED_BY_USER,
+  DISLIKE_POST_SUCCESS,
   POST_LIKE,
   POST_LIKE_SUCCESS,
   DELETE_IMAGE_SUCCESS,
@@ -23,9 +24,10 @@ export const fetchImages = () => ({
 
 });
 
-export const fetchImagesSuccess = images => ({
+export const fetchImagesSuccess = (images ) => ({
   type: FETCH_IMAGES_SUCCESS,
   images,
+
 });
 
 export const postLike = data => ({
@@ -35,11 +37,16 @@ export const postLike = data => ({
 
 export const postLikeSuccess = (id, data) => ({
   type: POST_LIKE_SUCCESS,
-  data,
   id,
+  data
 
 });
 
+export const dislikePostSuccess = (id, data) => ({
+  type: DISLIKE_POST_SUCCESS,
+  id,
+  data
+})
 
 export const fetchImageFailure = error => ({
   type: FETCH_IMAGES_FAILURE,
@@ -70,6 +77,8 @@ export const deleteImageFailure = error => ({
   type: DELETE_IMAGE_FAILURE,
   error,
 });
+
+
 export const postComment = data => ({
   type: POST_COMMENT,
   data,

@@ -61,7 +61,7 @@ class ImageContainer extends React.Component {
 
     render() {
       const {
-        img, deleteImg, postLike, classes,
+        img, deleteImg, postLike, classes, user:{ username }, likeCount
       } = this.props;
       return (
         <Grid item sm={12} md={12} className={classes.imageGridItem}>
@@ -71,7 +71,7 @@ class ImageContainer extends React.Component {
               <Typography className={classes.imageTypographyTitle} variant="h4" align="center">{img.image_title}</Typography>
               <Divider className={classes.imageDivider} variant="middle" />
               <Image image_url={img.img_url} />
-              <Typography variant="h6" align="center">{img.user.username}</Typography>
+              <Typography variant="h6" align="center">{username}</Typography>
               <Typography variant="h6" align="center">{moment(img.created_at).calendar()}</Typography>
               <Button onClick={() => this.writeComment(img.id)} variant="outlined" component="span" color="primary">
                 {this.state.isComment === img.id ? 'Close' : 'Write A Comment'}
@@ -112,7 +112,7 @@ class ImageContainer extends React.Component {
                       <FavoriteBorder />
                     </span>
                   ) }
-                {img.likes ? img.likes.length : null}
+                  {img.likes ? img.likes.length : null}
               </span>
               {/* image comments */}
               {/* if have comments show Comments */}

@@ -33,10 +33,10 @@ router.get('/uploads', (req, res) => {
           },
         },
         'comments.user',
-        'likes',
+        'likes'
       ],
     })
-    .then(images => res.status(200).json(images.toJSON()));
+    .then(images => res.status(200).json( images.toJSON()));
 });
 
 router.post('/delete/:id', (req, res) => {
@@ -104,20 +104,23 @@ router.post('/like/:id', (req, res) => {
 
         const newLike = new Likes({
           image_id: id,
-          user_id: req.user.id,
-          likedByme: req.body.newHeart,
+          user_id: req.user.id
         });
         if (existingUserlikes.includes(req.user.id)) {
         // !newLike do not create a new row of likes if like from this user already exists
           if (!newLike) {
             Likes.forge().where({ user_id: req.user.id, image_id: id }).destroy();
           }
-          return res.status(500).json({ status: 'You already liked this post', like: newLike });
+          return Likes.forge().where({user_id: req.user.id, image_id: id }).fetch()
+              .then((like) => like.destroy()
+              .then( () => res.json({ error: true, data: { message: 'like deleted' } })));
         }
         newLike.save().then(like => res.status(200).json({ status: 'You liked this post', like: newLike }));
       });
   }
 });
+
+
 router.post('/newComment', async (req, res) => {
   const myComment = new Comment({
     comment_body: req.body.commentBody, // remember commentBody is used for the client side
@@ -133,4 +136,7 @@ router.post('/newComment', async (req, res) => {
       .then(comments => res.status(200).json(comments));
   });
 });
+
+
+
 export default router;

@@ -3,8 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import dashboardStyles from '../styles/dashboardStyles';
 import Dashboard from '../components/Dashboard';
 import * as actionCreators from '../actions/imageActions';
+import { 
+   getImages
+} from '../reducers';
 
 const mapStateToProps = state => ({
+  likeCount: state.image.likeCount,
   images: state.image.images,
   auth: state.auth,
 });

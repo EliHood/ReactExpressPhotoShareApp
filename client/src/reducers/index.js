@@ -6,3 +6,4 @@ export default combineReducers({
   auth: authReducer,
   image: imageReducer,
 });
+

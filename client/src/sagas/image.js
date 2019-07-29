@@ -1,16 +1,17 @@
 import {
-  put, fork, takeLatest, call,
+  put, fork, delay, takeLatest, call,
 } from 'redux-saga/effects';
 import api from '../api';
 import {
   GET_IMAGES, POST_COMMENT, POST_LIKE,
-  DELETE_IMAGE, UPLOAD_IMAGE,
+  DELETE_IMAGE, UPLOAD_IMAGE
 } from '../actions/types';
 import {
   fetchImagesSuccess,
   postLikeSuccess,
   uploadImageFailure,
   fetchImageFailure,
+  dislikePostSuccess,
   uploadImageSuccess,
   deleteImageFailure,
   deleteImageSuccess,
@@ -21,13 +22,17 @@ import {
 export function* getImages() {
   try {
     const images = yield call(api.images.fetchImages);
-    console.log(images); // this returns html for some reason
+  
+    console.log(images);
     // debugger;
     yield put(fetchImagesSuccess(images));
+
   } catch (error) {
     yield put(fetchImageFailure(error.response.data));
   }
 }
+
+
 export function* uploadImage(action) {
   try {
     const image = yield call(api.images.uploadImage, action.data);
@@ -59,16 +64,18 @@ export function* postComment(action) {
 export function* postLike(action) {
   try {
     const id = yield call(api.images.likePost, action.data.id);
-    console.log(id);
-    yield put(postLikeSuccess(id, action.data.newHeart));
+    
+    // yield put(postLikeSuccess(id, action.data.id));
+    yield put(dislikePostSuccess(id, action.data.id))
   } catch (err) {
-    console.log(err);
+     console.log(err); 
   }
 }
 
 export function* watchImages() {
   yield takeLatest(GET_IMAGES, getImages);
 }
+
 export function* watchCreateImage() {
   yield takeLatest(UPLOAD_IMAGE, uploadImage);
 }
