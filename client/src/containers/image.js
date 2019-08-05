@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   postComment: data => dispatch(actionCreators.postComment(data)),
   postLike: data => dispatch(actionCreators.postLike(data)),
+  postDislike : data => dispatch(actionCreators.postDislike(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(imageStyles)(ImageContainer));

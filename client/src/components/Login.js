@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import { GoogleLogin } from 'react-google-login';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import { GoogleLoginButton } from 'react-social-login-buttons';
 import LoginForm from './LoginForm/LoginForm';
 import IsAuth from '../isAuthenticatedHoc';
 // const onSuccess = response => console.log(response);
@@ -76,30 +73,7 @@ class Login extends Component {
                 username={this.state.username}
                 password={this.state.password}
               />
-              <Grid item sm={12}>
-                <Typography align="center" variant="h4" style={{ letterSpacing: '6px' }}>
-                  OR
-                </Typography>
-                <Divider style={{ width: '200px', margin: '20px auto', backgroundColor: '#000000' }} variant="middle" />
-              </Grid>
-              <GoogleLogin
-                clientId="414221829387-squf9po9h437tjkknkc0c4foq6734fo7.apps.googleusercontent.com"
-                render={renderProps => (
-                  <GoogleLoginButton
-                    className="googleBtn"
-                    alt="googleLogo"
-                    onClick={renderProps.onClick}
-                    align="center"
-                    style={{ background: '#80cbc4' }}
-                  />
-                )}
-                buttonText="Login with Google"
-                onSuccess={googleLogin}
-                onFailure={googleLogin}
-                className="googleComponentBtn"
-                theme="light"
-              />
-            </Grid>
+             </Grid>
           </Grid>
         </div>
       );

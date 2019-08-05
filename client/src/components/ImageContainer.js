@@ -41,7 +41,12 @@ class ImageContainer extends React.Component {
       const newData = {
         id, newHeart,
       };
-      this.props.postLike(newData);
+      
+      if (this.state.heart) {
+        this.props.postLike(newData);
+      } else {
+        this.props.postDislike(newData)
+      }
     }
 
     commentSubmit = (event, id) => {

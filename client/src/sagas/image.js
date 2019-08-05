@@ -4,7 +4,7 @@ import {
 import api from '../api';
 import {
   GET_IMAGES, POST_COMMENT, POST_LIKE,
-  DELETE_IMAGE, UPLOAD_IMAGE
+  DELETE_IMAGE, UPLOAD_IMAGE, DISLIKE_POST
 } from '../actions/types';
 import {
   fetchImagesSuccess,
@@ -65,11 +65,23 @@ export function* postLike(action) {
   try {
     const id = yield call(api.images.likePost, action.data.id);
     
-    // yield put(postLikeSuccess(id, action.data.id));
+    yield put(postLikeSuccess(id, action.data.id));
+    // yield put(dislikePostSuccess(id, action.data.id))
+  } catch (err) {
+     console.log(err); 
+  }
+
+}
+
+export function* postDislike(action){
+  try {
+    const id = yield call(api.images.likePost, action.data.id);
+    
     yield put(dislikePostSuccess(id, action.data.id))
   } catch (err) {
      console.log(err); 
   }
+
 }
 
 export function* watchImages() {
@@ -87,12 +99,17 @@ export function* watchPostLike() {
   yield takeLatest(POST_LIKE, postLike);
 }
 
+export function* watchPostDislike(){
+ yield takeLatest(DISLIKE_POST, postDislike)
+}
+
 export function* watchPostComment() {
   yield takeLatest(POST_COMMENT, postComment);
 }
 export default function* () {
   yield fork(watchImages);
   yield fork(watchPostLike);
+  yield fork(watchPostDislike)
   yield fork(watchCreateImage);
   yield fork(watchDeleteImage);
   yield fork(watchPostComment);

@@ -111,7 +111,7 @@ class Dashboard extends Component {
               ) : (
                 null
               )}
-              <ImageList images={images} likeCount={likeCount} />
+              <ImageList images={images}/>
             </Grid>
             {/* Images  */}
           </Grid>

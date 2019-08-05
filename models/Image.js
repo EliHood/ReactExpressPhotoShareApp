@@ -17,8 +17,12 @@ const Image = bookshelf.Model.extend(
     },
 
     likes() {
-      return this.hasMany(Likes);
+      return this.hasMany(Likes)
     },
+   
+  
+
+    
     
  
     // this deletes images despite having a comment or not

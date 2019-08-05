@@ -21,6 +21,7 @@ router.get('/uploads', (req, res) => {
   Image.query((image) => {
     image.orderBy('img_url', 'DESC');
     image.limit(10);
+  
     // if you want to include the user with the image, you would use the withRelated
     // comments.user gets the user within the comments array
   })
@@ -33,10 +34,10 @@ router.get('/uploads', (req, res) => {
           },
         },
         'comments.user',
-        'likes'
+       'likes'
       ],
     })
-    .then(images => res.status(200).json( images.toJSON()));
+    .then(images => res.status(200).json(images.toJSON()));
 });
 
 router.post('/delete/:id', (req, res) => {

@@ -4,7 +4,7 @@ import dashboardStyles from '../styles/dashboardStyles';
 import Dashboard from '../components/Dashboard';
 import * as actionCreators from '../actions/imageActions';
 import { 
-   getImages
+   getAllImages
 } from '../reducers';
 
 const mapStateToProps = state => ({

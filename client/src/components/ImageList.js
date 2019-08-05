@@ -9,12 +9,12 @@ class ImageList extends Component {
       this.props.deleteImage(id);
     }
     render() {
-      const { images, likeCount  } = this.props;
+      const { images } = this.props;
       return (
         images.length > 0 ? (
           images.map((img, i) => (
             <div key={i}>
-              <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)} user={img.user} likeCount={likeCount} />
+              <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)} user={img.user} />
             </div>
           ))
         ) : (
