@@ -58,10 +58,14 @@ class ImageContainer extends React.Component {
         commentBody,
         id,
       };
-      this.props.postComment(data);
-      this.setState({
-        comment_body: '',
-      });
+      
+      if(this.props.postComment(data)){
+          this.setState({
+            isComment: false, // hides comment component when data is submitted
+            comment_body: ''
+          })
+      }
+    
     }
 
     render() {

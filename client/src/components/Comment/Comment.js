@@ -21,8 +21,8 @@ const Comment = props => (
       {/* <Button type="submit" variant="outlined" component="span" color="primary">
                 Post A Comment
             </Button> */}
-      <button type="submit" variant="outlined" component="span" color="primary">
-                Write a Comment
+      <button type="submit">
+          Write a Comment
       </button>
     </form>
   </div>
