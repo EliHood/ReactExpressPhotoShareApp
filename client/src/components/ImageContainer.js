@@ -25,10 +25,10 @@ class ImageContainer extends React.Component {
         comment_body: e.target.value,
       });
     }
-
+    // handles opening up the comment component when writeComment is executed
     writeComment = (id) => {
       this.setState({
-        isComment: this.state.isComment ? '' : id, // check if you state is filled to toggle on/off comment
+        isComment: this.state.isComment ? '' : id, // check if state is filled to toggle on/off comment section 
       });
     }
 
@@ -83,7 +83,7 @@ class ImageContainer extends React.Component {
               <Typography variant="h6" align="center">{username}</Typography>
               <Typography variant="h6" align="center">{moment(img.created_at).calendar()}</Typography>
               <Button onClick={() => this.writeComment(img.id)} variant="outlined" component="span" color="primary">
-                {this.state.isComment === img.id ? 'Close' : 'Write A Comment'}
+                {this.state.isComment === img.id ? 'Close' : 'Write A Comment'} 
               </Button>
               {/* here were prevent comments being selected for all items in the array, renders the comment form you clicked on.  */}
               {this.state.isComment === img.id
