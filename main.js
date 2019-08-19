@@ -49,10 +49,10 @@ app.use(bodyParser.json());
 // you need body parser urlencoded so passport will not give a Missing Credentials error
 app.use(
   session({
-    store,
+    store: store,
     saveUninitialized: true,
     resave: true,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000,  }, // 30 days
     secret: process.env.JWT_SECRET,
   }),
 );
