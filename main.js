@@ -26,7 +26,8 @@ const store = new knexSession({
 });
 const app = express();
 // declare this build before routes and stuff. else it wont go to the routes.
-
+app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(
   cors({
     origin: process.env.ALLOW_ORIGIN,
@@ -43,8 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(logger('dev'));
-app.use(cookieParser());
-app.use(bodyParser.json());
+
 // For React Stuff if need be
 //
 
