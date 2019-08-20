@@ -11,7 +11,7 @@ import { userLogInSuccess, userLogOut, getUser } from './actions/authActions';
 
 
 class App extends Component {
- UNSAFE_componentWillMount(){
+ componentWillMount(){
     // JWT TOKEN
   if (localStorage.jwtToken) {
     // Set auth token header auth
