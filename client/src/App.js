@@ -27,7 +27,7 @@ class App extends Component {
     // Check for expired token
     const currentTime = Date.now() / 1000;
     
-    if (decoded.iat < currentTime) {
+    if (decoded.iat > currentTime) {
       // Logout user
       store.dispatch(userLogOut());
       // Redirect to login

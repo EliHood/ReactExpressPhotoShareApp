@@ -26,8 +26,6 @@ const store = new knexSession({
 });
 const app = express();
 // declare this build before routes and stuff. else it wont go to the routes.
-app.use(cookieParser());
-app.use(bodyParser.json());
 app.use(
   cors({
     origin: process.env.ALLOW_ORIGIN,
@@ -49,6 +47,8 @@ app.use(logger('dev'));
 //
 
 // you need body parser urlencoded so passport will not give a Missing Credentials error
+app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(
   session({
     store: store,
