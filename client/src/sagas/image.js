@@ -5,7 +5,7 @@ import api from '../api';
 import {
   GET_IMAGES, POST_COMMENT, POST_LIKE,
   DELETE_IMAGE, UPLOAD_IMAGE, DISLIKE_POST
-} from '../actions/types';
+} from '../types';
 import {
   fetchImagesSuccess,
   postLikeSuccess,

@@ -10,8 +10,8 @@ import {
   GET_ERRORS,
   GET_CURRENT_USER,
   REGISTER_USER,
-} from '../actions/types';
-import isEmpty from '../actions/utils/isEmpty';
+} from '../types';
+import isEmpty from '../utils/isEmpty';
 
 const initialState = {
   isAuthenticated: false,
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
         error: action.error,
       };
     case USER_LOG_IN_SUCCESS:
-      console.log(action);
+      console.log(action.token);
       return {
         ...state,
         isAuthenticated: !isEmpty(action.token),

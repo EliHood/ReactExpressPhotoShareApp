@@ -16,7 +16,7 @@ import {
   UPLOAD_IMAGE_SUCCESS,
   POST_COMMENT_SUCCESS,
   POST_COMMENT_FAILURE,
-} from './types';
+} from '../types';
 // sometimes the server doesn't connect to the /uploads right away so this is where sleep
 // can be useful
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));

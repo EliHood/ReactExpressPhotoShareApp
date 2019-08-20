@@ -8,7 +8,7 @@ import {
   POST_LIKE_SUCCESS,
   DISLIKE_POST_SUCCESS,
   DELETE_IMAGE_SUCCESS,
-} from '../actions/types';
+} from '../types';
 const initialState = {
   images: [],
   likeCount: []

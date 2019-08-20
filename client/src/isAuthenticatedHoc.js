@@ -27,7 +27,7 @@ export default function (WrappedComponent) {
       if (nextProps.errors) {
         return {errors: nextProps.errors};
       }
-      
+      return null
     }
 
     render(){

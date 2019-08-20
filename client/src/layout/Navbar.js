@@ -14,7 +14,7 @@ import Dashboard from '../containers/dashboard';
 import Home from '../components/Home';
 import PrivateRoute from '../components/PrivateRoute';
 // import createBrowserHistory from 'history/createBrowserHistory'
-export const history = createBrowserHistory({ forceRefresh: true });
+export const history = createBrowserHistory({forceRefresh:true});
 class Navbar extends Component {
     logout = (e) => {
       e.preventDefault();

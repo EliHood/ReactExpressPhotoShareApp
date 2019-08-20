@@ -123,6 +123,15 @@ router.post(
   },
 );
 
+// router.get('/user', (req, res, next) => {
+//   res.json(req.cookies);
+//   // if(req.cookies.jwt || req.cookies.gwtjwt){
+//   //   res.status(200).send({ auth:true});
+//   // }
+//   // else{
+//   //   res.status(403).send({ auth: false});
+//   // }
+// });
 // router.post('/auth/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // router.get('/auth/google/callback',

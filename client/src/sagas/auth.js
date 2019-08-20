@@ -3,13 +3,13 @@ import {
 } from 'redux-saga/effects';
 import jwtDecode from 'jwt-decode';
 import api from '../api';
-import setAuthToken from '../actions/utils/setAuthToken';
+import setAuthToken from '../utils/setAuthToken';
 import {
   USER_LOG_OUT,
   LOGIN_USER,
   GET_CURRENT_USER,
   REGISTER_USER,
-} from '../actions/types';
+} from '../types'
 import {
   userLogInSuccess,
   registerUserFailure,
@@ -29,7 +29,7 @@ export function* userLogin(action) {
     const { token } = user;
     console.log(token);
     // pass the token in session
-    sessionStorage.setItem('jwtToken', token);
+    localStorage.setItem('jwtToken', token);
     setAuthToken(token);
     const decoded = jwtDecode(token);
     // pass the decoded token
@@ -47,7 +47,7 @@ export function* registerUser(action) {
     console.log(user);
     const { token } = user;
 
-    sessionStorage.setItem('jwtToken', token);
+    localStorage.setItem('jwtToken', token);
     setAuthToken(token);
 
     const decoded = jwtDecode(token);
@@ -59,7 +59,7 @@ export function* registerUser(action) {
 }
 export function* userLogout(action) {
   try {
-    sessionStorage.removeItem('jwtToken');
+    localStorage.removeItem('jwtToken');
     // Remove auth header for future requests
     setAuthToken(false);
     // console.log(action);

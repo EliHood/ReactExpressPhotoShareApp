@@ -44,20 +44,21 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(logger('dev'));
 // For React Stuff if need be
 //
-app.use(cookieParser());
-app.use(bodyParser.json());
+
 // you need body parser urlencoded so passport will not give a Missing Credentials error
 app.use(
   session({
     store: store,
-    saveUninitialized: true,
-    resave: true,
+    saveUninitialized: false,
+    resave:false,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000,  }, // 30 days
     secret: process.env.JWT_SECRET,
   }),
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // call this line before routes

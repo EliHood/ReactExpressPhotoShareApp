@@ -13,7 +13,7 @@ import {
   GET_CURRENT_USER,
   USER_LOG_IN_SUCCESS,
   CURRENT_USER_SUCCESS,
-} from './types';
+} from '../types'
 
 export const loginUser = userData => ({
   type: LOGIN_USER,
