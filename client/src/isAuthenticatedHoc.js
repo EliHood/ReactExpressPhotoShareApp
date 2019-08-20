@@ -20,14 +20,14 @@ export default function (WrappedComponent) {
     }
     //   this line is magic, redirects to the dashboard after user signs up
     // this replace getDerivedStateFromPropss
-    componentWillReceiveProps(nextProps){
+    static getDerivedStateFromProps(nextProps){
       if (nextProps.auth.isAuthenticated) {
-        this.props.history.push('/dashboard');
+        nextProps.history.push('/dashboard');
       }
       if (nextProps.errors) {
-        this.setState({errors: nextProps.errors});
+        return {errors: nextProps.errors};
       }
-  
+      return null
     }
 
     render(){
