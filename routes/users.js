@@ -132,16 +132,16 @@ router.post(
 //   //   res.status(403).send({ auth: false});
 //   // }
 // });
-// router.post('/auth/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-// router.get('/auth/google/callback',
-//   passport.authenticate('google', { successRedirect:'http://localhost:3001', failureRedirect: '/login' }),
-//    (req, res) => {
-//             res.json({
-//                 success:true,
-//             })
+router.get('/auth/google/callback',
+  passport.authenticate('google', { successRedirect:'http://localhost:3001', failureRedirect: '/login' }),
+   (req, res) => {
+            res.json({
+                success:true,
+            })
 
-//   });
+  });
 
 router.post(
   '/login',

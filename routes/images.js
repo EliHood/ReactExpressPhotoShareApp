@@ -25,6 +25,7 @@ router.get('/uploads', (req, res) => {
     // if you want to include the user with the image, you would use the withRelated
     // comments.user gets the user within the comments array
   })
+    .withCount('likes as likeCount')
     .fetchAll({
       withRelated: [
         'user',
@@ -34,7 +35,7 @@ router.get('/uploads', (req, res) => {
           },
         },
         'comments.user',
-       'likes'
+       
       ],
     })
     .then(images => res.status(200).json(images.toJSON()));
@@ -83,7 +84,7 @@ router.post(
             image.orderBy('img_url', 'DESC');
             image.limit(10);
           })
-            .fetchAll({ withRelated: ['user', 'comments', 'likes'] })
+            .fetch({ withRelated: ['user', 'comments', 'likes'] })
             .then(images => res.status(200).json(images));
         });
       },

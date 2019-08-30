@@ -86,10 +86,11 @@ export default (state = initialState, action) => {
         current_user: action.data,
       };
     case CURRENT_USER_SUCCESS:
-      // console.log(action.data);
+      console.log(action.data);
       return {
         ...state,
         current_user: action.data,
+        isAuthenticated: !isEmpty(action.data),
       };
     default:
       return state;

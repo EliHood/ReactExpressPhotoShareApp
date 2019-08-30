@@ -69,8 +69,8 @@ class Dashboard extends Component {
           maxFileSize={5242880}
         />
       );
-      const { images, classes, likeCount } = this.props;
-      // console.log(this.props.images);
+      const { images, classes, likeCount, liked } = this.props;
+ 
       return (
         <div>
           <Grid style={{ height: '500px' }} container justify="center">
@@ -111,7 +111,7 @@ class Dashboard extends Component {
               ) : (
                 null
               )}
-              <ImageList images={images}/>
+              <ImageList images={images} liked={liked}/>
             </Grid>
             {/* Images  */}
           </Grid>

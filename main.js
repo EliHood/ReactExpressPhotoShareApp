@@ -1,3 +1,5 @@
+// Do not change the structure of the or else react build issues. 
+
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';

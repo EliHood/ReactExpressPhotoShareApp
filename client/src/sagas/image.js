@@ -37,6 +37,7 @@ export function* uploadImage(action) {
   try {
     const image = yield call(api.images.uploadImage, action.data);
     console.log(image);
+ 
     yield put(uploadImageSuccess(image));
   } catch (error) {
     yield put(uploadImageFailure(error.response.data));
@@ -66,7 +67,7 @@ export function* postLike(action) {
     const id = yield call(api.images.likePost, action.data.id);
     
     yield put(postLikeSuccess(id, action.data.id));
-    // yield put(dislikePostSuccess(id, action.data.id))
+  
   } catch (err) {
      console.log(err); 
   }

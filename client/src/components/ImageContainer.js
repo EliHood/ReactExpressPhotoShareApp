@@ -70,8 +70,9 @@ class ImageContainer extends React.Component {
 
     render() {
       const {
-        img, deleteImg, postLike, classes, user:{ username }, likeCount
+        img, deleteImg, postLike, classes,  user:{ username }, liked
       } = this.props;
+      console.log(liked)
       return (
         <Grid item sm={12} md={12} className={classes.imageGridItem}>
           <LazyLoad throttle={200} height={600}>
@@ -121,7 +122,9 @@ class ImageContainer extends React.Component {
                       <FavoriteBorder />
                     </span>
                   ) }
-                  {img.likes ? img.likes.length : null}
+
+              
+                  {img.likeCount === '0' ? 'No Likes' : img.likeCount}
               </span>
               {/* image comments */}
               {/* if have comments show Comments */}
@@ -136,7 +139,7 @@ class ImageContainer extends React.Component {
                             {comment.comment_body}
                           </Typography>
                         </ListItem>
-                        <Typography className={classes.commentUsername} variant="caption" align="left">{comment.user.username}</Typography>
+                        {/* <Typography className={classes.commentUsername} variant="caption" align="left">{comment.user.username}</Typography> */}
                         <Typography className={classes.commentDate} variant="caption" align="right">{moment(comment.created_at).calendar()}</Typography>
                         <Divider variant="fullWidth" component="li" />
                       </List>

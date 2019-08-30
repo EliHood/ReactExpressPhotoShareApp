@@ -6,11 +6,12 @@ import JWTstrag from 'passport-jwt';
 import ExtracJWT from 'passport-jwt';
 import { check, validationResult } from 'express-validator/check';
 import User from '../models/User';
-
+import GoogleStrategy from 'passport-google-oauth20';
 
 const JWTstrategy = JWTstrag.Strategy;
 const ExtractJWT = ExtracJWT.ExtractJwt;
 const Local = LocalStrategy.Strategy;
+const GoogleSta = GoogleStrategy.Strategy;
 
 const opts = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
@@ -38,33 +39,34 @@ passport.use(
   }),
 );
 
-// passport.use(
-//   new GoogleStrategy(
-//   {
-//   clientID: process.env.clientID,
-//   // clientSecret: process.env.secret,
-//   callbackURL: 'http://localhost:3000/users/auth/google/callback',
-//   // proxy: true
-//   }, (token, tokenSecret, profile, done) => {
+passport.use(
+  new GoogleSta(
+  {
+  clientID: process.env.clientID,
+  clientSecret: process.env.secret,
+  callbackURL: 'http://localhost:3000/users/auth/google/callback',
+  // proxy: true
+  }, (token, tokenSecret, profile, done) => {
 
-//     console.log(profile);
-//     User.forge({ googleId: profile.id}).fetch()
-//       .then( (err, user) => {
-//         if(user){
-//           return done(null, user);
-//         }else{
-//           const googleUser = new User({
-//             googleId: profile.id,
-//             email:profile.emails[0].value
-//           });
+    console.log(profile);
+    User.forge({ googleId: profile.id}).fetch()
+      .then( (err) => {
+        if(profile){  
+          return done(null, profile);
+         
+        }else{
+          const googleUser = new User({
+            googleId: profile.id,
+            email:profile.emails[0].value
+          });
 
-//           googleUser.save().then( user => done(null, user))
+          googleUser.save().then( user => done(null, user))
 
-//         }
-//       })
+        }
+      })
 
-//    }
-// ))
+   }
+))
 
 passport.use(
   'register',
