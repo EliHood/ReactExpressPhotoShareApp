@@ -18,6 +18,7 @@ export const history = createBrowserHistory({forceRefresh:true});
 class Navbar extends Component {
     logout = (e) => {
       e.preventDefault();
+      console.log('test')
       this.props.userLogOut();
       history.push('/login');
     }

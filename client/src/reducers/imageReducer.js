@@ -9,6 +9,7 @@ import {
   DISLIKE_POST_SUCCESS,
   DELETE_IMAGE_SUCCESS,
 } from '../types';
+import { REHYDRATE } from 'redux-persist/lib/constants'
 import { stat } from 'fs';
 const initialState = {
   images: [],
@@ -24,6 +25,7 @@ export default (state = initialState, action) => {
         images: action.images,
     
       };
+
     case UPLOAD_IMAGE_SUCCESS:
       const newImage = action.data;
       console.log(newImage)

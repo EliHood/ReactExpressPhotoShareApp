@@ -30,6 +30,7 @@ export function* userLogin(action) {
     console.log(token);
     // pass the token in session
     localStorage.setItem('jwtToken', token);
+    console.log(localStorage)
     setAuthToken(token);
     const decoded = jwtDecode(token);
     // pass the decoded token
@@ -62,10 +63,12 @@ export function* userLogout(action) {
     localStorage.removeItem('jwtToken');
     // Remove auth header for future requests
     setAuthToken(false);
+   
     // console.log(action);
     const logOut = yield call(api.user.logoutUser);
     yield put(userLogOutSuccess(logOut));
   } catch (error) {
+    console.log(error)
     yield put(userLogOutFailure(error));
   }
 }

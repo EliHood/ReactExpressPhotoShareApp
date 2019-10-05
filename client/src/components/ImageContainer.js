@@ -72,7 +72,6 @@ class ImageContainer extends React.Component {
       const {
         img, deleteImg, postLike, classes,  user:{ username }, liked
       } = this.props;
-      console.log(liked)
       return (
         <Grid item sm={12} md={12} className={classes.imageGridItem}>
           <LazyLoad throttle={200} height={600}>

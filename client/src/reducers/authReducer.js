@@ -12,7 +12,7 @@ import {
   REGISTER_USER,
 } from '../types';
 import isEmpty from '../utils/isEmpty';
-
+import { REHYDRATE, PURGE }from 'redux-persist'
 const initialState = {
   isAuthenticated: false,
   errors: [],
@@ -28,19 +28,26 @@ export default (state = initialState, action) => {
         error: action.error,
       };
     case USER_LOG_IN_SUCCESS:
-      console.log(action.token);
+      console.log(action);
       return {
         ...state,
         isAuthenticated: !isEmpty(action.token),
         user: action.token,
         errors: [],
       };
-
+    case REHYDRATE:
+      console.log(action.payload)
+      return{
+        ...state,
+        user: null,
+        [action.payload.isAuthenticated]: false
+    
+      }
     case GET_ERRORS:
       console.log(action.payload);
       // allows for us to loop through an array of errors.
       return {
-            	errors: [action.payload],
+            errors: [action.payload],
       };
     case USER_LOG_OUT:
       return {
@@ -66,11 +73,13 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
       };
     case USER_LOG_OUT_SUCCESS:
-      console.log(action);
+      console.log(action.payload)
       return {
         ...state,
         data: [],
         error: [],
+        isAuthenticated: false
+   
       };
     case USER_LOG_OUT_FAILURE:
       return {

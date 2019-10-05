@@ -20,6 +20,7 @@
 - Users can add comments to images.
 - Add likes to images
 - Heroku link should work now.
+- Redux Persist Integration(for no reason at alllll)
 
 ## Knex
 

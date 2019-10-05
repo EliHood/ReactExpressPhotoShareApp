@@ -4,7 +4,6 @@
 // code
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-
 export default function (WrappedComponent) {
   class IsAuth extends Component {
     constructor(props){
@@ -17,6 +16,7 @@ export default function (WrappedComponent) {
       if (this.props.auth.isAuthenticated) {
         this.props.history.push('/dashboard');
         }
+      console.log(this.props)
     }
     //   this line is magic, redirects to the dashboard after user signs up
     // this replace getDerivedStateFromPropss
@@ -29,16 +29,15 @@ export default function (WrappedComponent) {
       }
       return null
     }
-
     render(){
         return(
             <WrappedComponent {...this.props}/>
         )
     }
 }
-    const mapStateToProps = state => ({
-        image: state.image,
-        auth: state.auth,
-    });
-    return connect(mapStateToProps)(IsAuth);
+  const mapStateToProps = state => ({
+      image: state.image,
+      auth: state.auth,
+  });
+  return connect(mapStateToProps)(IsAuth);
 }
