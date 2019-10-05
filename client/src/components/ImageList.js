@@ -9,12 +9,12 @@ class ImageList extends Component {
       this.props.deleteImage(id);
     }
     render() {
-      const { images, liked} = this.props;
+      const { images} = this.props;
       return (
         images.length > 0 ? (
           images.map((img, i) => (
             <div key={i}>
-              <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)} user={img.user} liked={liked} />
+              <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)} user={img.user}/>
             </div>
           ))
         ) : (
@@ -29,5 +29,28 @@ class ImageList extends Component {
 }
 ImageList.propTypes = {
   deleteImage: PropTypes.func.isRequired,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      comments: PropTypes.arrayOf(
+        PropTypes.shape({
+          comment_body: PropTypes.string.isRequired,
+          created_at: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+          image_id: PropTypes.number.isRequired,
+          updated_at: PropTypes.string.isRequired,
+          user: PropTypes.object.isRequired,
+          user_id: PropTypes.number.isRequired,
+        }),
+      ),
+      created_at: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      image_title: PropTypes.string.isRequired,
+      image_url: PropTypes.string,
+      likeCount: PropTypes.string.isRequired,
+      updated_at: PropTypes.string.isRequired,
+      user: PropTypes.object.isRequired,
+      user_id: PropTypes.number.isRequired,
+    }),
+  ),
 };
 export default ImageList;

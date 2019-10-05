@@ -111,7 +111,7 @@ class Dashboard extends Component {
               ) : (
                 null
               )}
-              <ImageList images={images} liked={liked}/>
+              <ImageList images={images}/>
             </Grid>
             {/* Images  */}
           </Grid>
@@ -119,34 +119,5 @@ class Dashboard extends Component {
       );
     }
 }
-// Dashboard.propTypes = {
-//   fetchImages: PropTypes.func.isRequired,
-//   deleteImage: PropTypes.func.isRequired,
-//   uploadImage: PropTypes.func.isRequired,
-//   auth: PropTypes.object.isRequired,
-//   // type checking array of objects
-//   images: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       comments: PropTypes.arrayOf(
-//         PropTypes.shape({
-//           comment_body: PropTypes.string.isRequired,
-//           created_at: PropTypes.string.isRequired,
-//           id: PropTypes.number.isRequired,
-//           image_id: PropTypes.number.isRequired,
-//           updated_at: PropTypes.string.isRequired,
-//           user: PropTypes.object.isRequired,
-//           user_id: PropTypes.number.isRequired,
-//         }),
-//       ),
-//       created_at: PropTypes.string.isRequired,
-//       id: PropTypes.number,
-//       image_title: PropTypes.string.isRequired,
-//       image_url: PropTypes.string,
-//       likes: PropTypes.array.isRequired,
-//       updated_at: PropTypes.string.isRequired,
-//       user: PropTypes.object.isRequired,
-//       user_id: PropTypes.number.isRequired,
-//     }),
-//   ),
-// };
+
 export default Dashboard;

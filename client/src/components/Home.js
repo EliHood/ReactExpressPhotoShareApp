@@ -9,7 +9,7 @@ export default class Home extends Component {
         <Grid container justify="center" spacing={0} style={{ margin: '20px 0px' }}>
           <Grid item sm={10} md={6} lg={4}>
             <Typography variant="h4" style={{ letterSpacing: '2px' }}>
-                            Welcome
+                Welcome
             </Typography>
 
           </Grid>
