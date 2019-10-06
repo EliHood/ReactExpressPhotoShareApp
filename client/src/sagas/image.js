@@ -22,13 +22,11 @@ import {
 export function* getImages() {
   try {
     const images = yield call(api.images.fetchImages);
-  
-    console.log(images);
     // debugger;
     yield put(fetchImagesSuccess(images));
 
   } catch (error) {
-    yield put(fetchImageFailure(error.response.data));
+    yield put(fetchImageFailure(error.response));
   }
 }
 

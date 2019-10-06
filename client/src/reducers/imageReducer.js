@@ -11,6 +11,7 @@ import {
 } from '../types';
 import { REHYDRATE, PURGE, FLUSH }from 'redux-persist'
 import { stat } from 'fs';
+// We use seamless-immutable but thats for
 const initialState = {
   images: [],
   likeCount: [],
@@ -38,14 +39,14 @@ export default (state = initialState, action) => {
         ...state,
         images: state.images.filter(img => img.id !== action.data),
       };
-    case REHYDRATE:
-      console.log(action.payload.image)
-      const savedData = action.payload.image || initialState;
-      return {
-        ...state,
-        ...savedData,
-        ...state
-      }
+    // case REHYDRATE:
+    //   console.log(action.payload.image)
+    //   const savedData = action.payload.image || initialState;
+    //   return {
+    //     ...state,
+    //     ...savedData,
+    //     ...state
+    //   }
     case DELETE_IMAGE_FAILURE:
       return {
         ...state,

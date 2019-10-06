@@ -36,14 +36,14 @@ export default (state = initialState, action) => {
         user: action.token,
         errors: [],
       };
-    case REHYDRATE:
-      console.log(action.payload)
-      return{
-        ...state,
-        user: null,
-        [action.payload.isAuthenticated]: false
+    // case REHYDRATE:
+    //   console.log(action.payload)
+    //   return{
+    //     ...state,
+    //     user: null,
+    //     // [action.payload.isAuthenticated]: false
     
-      }
+    //   }
     case GET_ERRORS:
       console.log(action.payload);
       // allows for us to loop through an array of errors.
