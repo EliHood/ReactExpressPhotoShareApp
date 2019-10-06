@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
 export default class Home extends Component {
   render() {
     return (
@@ -11,7 +10,6 @@ export default class Home extends Component {
             <Typography variant="h4" style={{ letterSpacing: '2px' }}>
                 Welcome
             </Typography>
-
           </Grid>
         </Grid>
       </div>

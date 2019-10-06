@@ -27,7 +27,6 @@ class Login extends Component {
         },
       });
     }
-
     handleSubmit = (e) => {
       e.preventDefault();
       const { formData } = this.state;
@@ -39,7 +38,6 @@ class Login extends Component {
       this.props.loginUser(creds);
       // console.log(creds);
     }
-
     render() {
       const googleLogin = (response) => {
         let googleData;
@@ -59,11 +57,9 @@ class Login extends Component {
                      Sign In
               </Typography>
               {this.props.auth.errors ? (
-                this.props.auth.errors.map((err, i) => (
-                  <div key={i} style={{ color: 'red' }}>
-                    {err}
+                  <div  style={{ color: 'red', margin: '20px 0px'}}>
+                    {this.props.auth.errors }
                   </div>
-                ))
               ) : (
                 null
               )}

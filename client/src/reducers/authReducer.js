@@ -15,17 +15,18 @@ import isEmpty from '../utils/isEmpty';
 import { REHYDRATE, PURGE }from 'redux-persist'
 const initialState = {
   isAuthenticated: false,
-  errors: [],
+  errors: null,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case USER_LOG_IN_FAILURE:
+      console.log(action)
       return {
         ...state,
         data: [],
         loading: false,
         success: false,
-        error: action.error,
+        errors: action.error,
       };
     case USER_LOG_IN_SUCCESS:
       console.log(action);

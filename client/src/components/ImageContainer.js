@@ -12,14 +12,13 @@ import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import Comment from './Comment/Comment';
 import Image from './Image/Image';
-
+import CommentList from './CommentList';
 class ImageContainer extends React.Component {
     state = {
       isComment: false,
       comment_body: '',
       heart: false,
     }
-
     handleCommentChange = (e) => {
       this.setState({
         comment_body: e.target.value,
@@ -31,7 +30,6 @@ class ImageContainer extends React.Component {
         isComment: this.state.isComment ? '' : id, // check if state is filled to toggle on/off comment section 
       });
     }
-
     postLike = (e, id) => {
       e.preventDefault();
       this.setState({
@@ -41,14 +39,12 @@ class ImageContainer extends React.Component {
       const newData = {
         id, newHeart,
       };
-      
       if (this.state.heart) {
         this.props.postLike(newData);
       } else {
         this.props.postDislike(newData)
       }
     }
-
     commentSubmit = (event, id) => {
       event.preventDefault();
       console.log(this.state.comment_body); // doesn't get console.log
@@ -58,16 +54,13 @@ class ImageContainer extends React.Component {
         commentBody,
         id,
       };
-      
       if(this.props.postComment(data)){
           this.setState({
             isComment: false, // hides comment component when data is submitted
             comment_body: ''
           })
       }
-    
     }
-
     render() {
       const {
         img, deleteImg, postLike, classes,  user:{ username }, liked
@@ -121,35 +114,12 @@ class ImageContainer extends React.Component {
                       <FavoriteBorder />
                     </span>
                   ) }
-
-              
                   {img.likeCount === '0' ? 'No Likes' : img.likeCount}
               </span>
               {/* image comments */}
               {/* if have comments show Comments */}
               {img.comments.length > 0 ? <Typography className={classes.commentsTitle} variant="h6" align="left">Commments </Typography> : null }
-              <div className={classes.commentsBody}>
-                {img.comments.length > 0 ? (
-                  img.comments.map((comment, i) => (
-                    <div key={i}>
-                      <List>
-                        <ListItem alignItems="center">
-                          <Typography color="primary" variant="body1">
-                            {comment.comment_body}
-                          </Typography>
-                        </ListItem>
-                        {/* <Typography className={classes.commentUsername} variant="caption" align="left">{comment.user.username}</Typography> */}
-                        <Typography className={classes.commentDate} variant="caption" align="right">{moment(comment.created_at).calendar()}</Typography>
-                        <Divider variant="fullWidth" component="li" />
-                      </List>
-                    </div>
-                  ))
-                ) : (
-                  <div>
-                    <Typography className={classes.noCommentYet}>No Commments Yet</Typography>
-                  </div>
-                )}
-              </div>
+              <CommentList comments ={img.comments} classes={classes} />
             </Paper>
           </LazyLoad>
         </Grid>

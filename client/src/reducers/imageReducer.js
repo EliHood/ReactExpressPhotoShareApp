@@ -9,23 +9,20 @@ import {
   DISLIKE_POST_SUCCESS,
   DELETE_IMAGE_SUCCESS,
 } from '../types';
-import { REHYDRATE } from 'redux-persist/lib/constants'
+import { REHYDRATE, PURGE, FLUSH }from 'redux-persist'
 import { stat } from 'fs';
 const initialState = {
   images: [],
   likeCount: [],
   liked: false
 };
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_IMAGES_SUCCESS:
       return {
         ...state,
         images: action.images,
-    
       };
-
     case UPLOAD_IMAGE_SUCCESS:
       const newImage = action.data;
       console.log(newImage)
@@ -34,7 +31,6 @@ export default (state = initialState, action) => {
        images:  [newImage, ...state.images],
        // return state before and after
        ...state.images
-
       };
     case DELETE_IMAGE_SUCCESS:
       // console.log(action)
@@ -42,15 +38,21 @@ export default (state = initialState, action) => {
         ...state,
         images: state.images.filter(img => img.id !== action.data),
       };
+    case REHYDRATE:
+      console.log(action.payload.image)
+      const savedData = action.payload.image || initialState;
+      return {
+        ...state,
+        ...savedData,
+        ...state
+      }
     case DELETE_IMAGE_FAILURE:
       return {
         ...state,
         error: action.error,
       };
     case DISLIKE_POST_SUCCESS:
-     
       let newVote = {...state}
-  
       // const disLike = parseInt(newVote.images[0].likeCount)+ 1
       // console.log(disLike)
       console.log(newVote.images)
@@ -65,16 +67,12 @@ export default (state = initialState, action) => {
               ...image,
               user: {...image.user},
               likeCount: disLike
-  
             };
           }
           return image;
         }),
-       
       };
-
     case POST_LIKE_SUCCESS:
-    
       let newVote2 = {...state}
       console.log(newVote2.images)
       return {
@@ -88,19 +86,14 @@ export default (state = initialState, action) => {
               ...image,
               user: {...image.user},
               likeCount: disLike
-  
             };
           }
           return image;
         }),
-
       };
-
-
     case POST_COMMENT_SUCCESS:
       //  adds a comment to a post without having to re render.
       console.log(action.data);
-    
       return {
         ...state,
         images: state.images.map((image, idx) => {
