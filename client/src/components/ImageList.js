@@ -14,7 +14,7 @@ class ImageList extends Component {
         images.length > 0 ? (
           images.map((img, i) => (
             <div key={i}>
-              <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)} user={img.user}/>
+              <ImageContainer img={img} deleteImg={() => this.deleteImg(img.id)} user={img.user} index={i}/>
             </div>
           ))
         ) : (
@@ -46,7 +46,6 @@ ImageList.propTypes = {
       id: PropTypes.number,
       image_title: PropTypes.string.isRequired,
       image_url: PropTypes.string,
-      likeCount: PropTypes.string.isRequired,
       updated_at: PropTypes.string.isRequired,
       user: PropTypes.object.isRequired,
       user_id: PropTypes.number.isRequired,

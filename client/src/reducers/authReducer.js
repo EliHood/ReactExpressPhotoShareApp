@@ -11,98 +11,59 @@ import {
   GET_CURRENT_USER,
   REGISTER_USER,
 } from '../types';
+import produce from 'immer';
 import isEmpty from '../utils/isEmpty';
-import { REHYDRATE, PURGE }from 'redux-persist'
+import { REHYDRATE}from 'redux-persist'
 const initialState = {
   isAuthenticated: false,
   errors: null,
 };
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case USER_LOG_IN_FAILURE:
-      console.log(action)
-      return {
-        ...state,
-        data: [],
-        loading: false,
-        success: false,
-        errors: action.error,
-      };
-    case USER_LOG_IN_SUCCESS:
-      console.log(action);
-      return {
-        ...state,
-        isAuthenticated: !isEmpty(action.token),
-        user: action.token,
-        errors: [],
-      };
-    case REHYDRATE:
-      console.log(action.payload)
-      return{
-        ...state,
-        user: null,
-        // [action.payload.isAuthenticated]: false
-    
-      }
-    case GET_ERRORS:
-      console.log(action.payload);
-      // allows for us to loop through an array of errors.
-      return {
-            errors: [action.payload],
-      };
-    case USER_LOG_OUT:
-      return {
-        ...state,
-        error: [],
-      };
 
-    case REGISTER_USER:
-      return {
-        ...state,
-      };
-    case REGISTER_USER_SUCCESS:
-      console.log(action);
-      return {
-        ...state,
-        isAuthenticated: !isEmpty(action.data),
-        user: action.data,
-        errors: [],
-      };
-    case REGISTER_USER_FAILURE:
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
-    case USER_LOG_OUT_SUCCESS:
-      console.log(action.payload)
-      return {
-        ...state,
-        data: [],
-        error: [],
-        isAuthenticated: false
-   
-      };
-    case USER_LOG_OUT_FAILURE:
-      return {
-        ...state,
-        data: [],
-        loading: false,
-        success: false,
-        error: action.error,
-      };
-    case GET_CURRENT_USER:
-      return {
-        ...state,
-        current_user: action.data,
-      };
-    case CURRENT_USER_SUCCESS:
-      console.log(action.data);
-      return {
-        ...state,
-        current_user: action.data,
-        isAuthenticated: !isEmpty(action.data),
-      };
-    default:
-      return state;
-  }
-};
+const authReducer = (state = initialState, action) => 
+  produce(state, draft => {
+    switch (action.type) {
+      case USER_LOG_IN_FAILURE:
+        draft.errors = action.error
+        return 
+      case USER_LOG_IN_SUCCESS:
+        console.log(action)
+        draft.isAuthenticated = !isEmpty(action.token)
+        draft.user = action.token
+        return
+      case REHYDRATE:
+        console.log(action.payload)
+        draft.user = null
+        return
+      case GET_ERRORS:
+        console.log(action.payload);
+        // allows for us to loop through an array of errors.
+        draft.errors = action.error
+        return 
+      case USER_LOG_OUT:
+        draft.errors = action.error 
+        return 
+      case REGISTER_USER_SUCCESS:
+        draft.isAuthenticated = !isEmpty(action.data)
+        draft.user = action.data
+        return
+
+      case REGISTER_USER_FAILURE:
+        draft.isAuthenticated = false
+        return
+      case USER_LOG_OUT_SUCCESS:
+        console.log(action.payload)
+        draft.isAuthenticated = false
+        return
+      case USER_LOG_OUT_FAILURE:
+        draft.error = action.error
+        return
+      case CURRENT_USER_SUCCESS:
+        draft.current_user = action.data
+        draft.isAuthenticated = !isEmpty(action.data)
+        return 
+
+    }
+    
+});
+
+export default authReducer;

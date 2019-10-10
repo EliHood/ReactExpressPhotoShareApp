@@ -18,7 +18,7 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
-  image: imageReducer,
+  image: imageReducer
 });
 
 export default persistReducer(rootPersistConfig, rootReducer)

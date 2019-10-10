@@ -52,8 +52,8 @@ export function* deleteImage(action) {
 }
 export function* postComment(action) {
   try {
+    
     const data = yield call(api.images.postComment, action.data);
-    console.log(action);
     yield put(postCommentSuccess(data, action.data.id));
   } catch (error) {
     yield put(postCommentFailure(error.response.data));

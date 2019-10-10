@@ -8,110 +8,56 @@ import {
   POST_LIKE_SUCCESS,
   DISLIKE_POST_SUCCESS,
   DELETE_IMAGE_SUCCESS,
+  FETCH_IMAGES_FAILURE,
+  POST_COMMENT_FAILURE,
 } from '../types';
 import { REHYDRATE, PURGE, FLUSH }from 'redux-persist'
 import { stat } from 'fs';
+import produce from 'immer';
 // We use seamless-immutable but thats for
 const initialState = {
   images: [],
   likeCount: [],
-  liked: false
+  liked: false,
+  error:null,
 };
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case FETCH_IMAGES_SUCCESS:
-      return {
-        ...state,
-        images: action.images,
-      };
-    case UPLOAD_IMAGE_SUCCESS:
-      const newImage = action.data;
-      console.log(newImage)
-      return {
-        ...state,
-       images:  [newImage, ...state.images],
-       // return state before and after
-       ...state.images
-      };
-    case DELETE_IMAGE_SUCCESS:
-      // console.log(action)
-      return {
-        ...state,
-        images: state.images.filter(img => img.id !== action.data),
-      };
-    // case REHYDRATE:
-    //   console.log(action.payload.image)
-    //   const savedData = action.payload.image || initialState;
-    //   return {
-    //     ...state,
-    //     ...savedData,
-    //     ...state
-    //   }
-    case DELETE_IMAGE_FAILURE:
-      return {
-        ...state,
-        error: action.error,
-      };
-    case DISLIKE_POST_SUCCESS:
-      let newVote = {...state}
-      // const disLike = parseInt(newVote.images[0].likeCount)+ 1
-      // console.log(disLike)
-      console.log(newVote.images)
-      return {
-        ...state,
-        images: state.images.map((image, idx) => {
-          const disLike = parseInt(newVote.images[idx].likeCount) - 1
-          // instead of referring to [0] well just use idx 
-          // appends new comment withing images redux state. only if image.id === action.id
-          if (image.id === action.data) {
-            return {
-              ...image,
-              user: {...image.user},
-              likeCount: disLike
-            };
-          }
-          return image;
-        }),
-      };
-    case POST_LIKE_SUCCESS:
-      let newVote2 = {...state}
-      console.log(newVote2.images)
-      return {
-        ...state,
-        images: state.images.map((image, idx) => {
-          const disLike = parseInt(newVote2.images[idx].likeCount) + 1
-          // instead of referring to [0] well just use idx 
-          // appends new comment withing images redux state. only if image.id === action.id
-          if (image.id === action.data) {
-            return {
-              ...image,
-              user: {...image.user},
-              likeCount: disLike
-            };
-          }
-          return image;
-        }),
-      };
-    case POST_COMMENT_SUCCESS:
-      //  adds a comment to a post without having to re render.
-      console.log(action.data);
-      return {
-        ...state,
-        images: state.images.map((image, idx) => {
-          // instead of referring to [0] well just use idx 
-          // appends new comment withing images redux state. only if image.id === action.id
-          if (image.id === action.id) {
-            return {
-              ...image,
-              comments: [
-                ...image.comments, action.data[idx]
-              ],
-            };
-          }
-          return image;
-        }),
-      };
-    default:
-      return state;
-  }
-};
+const imageReducer = (state = initialState, action) => 
+  produce(state, draft => {
+    switch (action.type) {
+      case FETCH_IMAGES_SUCCESS:
+        console.log(action.images)
+        draft.images = action.images
+        break;
+      case FETCH_IMAGES_FAILURE:
+        console.log(action)
+        draft.error = action.error
+        break;
+      case UPLOAD_IMAGE_SUCCESS:
+        console.log(action.data);
+        draft.images = [ action.data, ...draft.images]
+        return 
+      case UPLOAD_IMAGE_SUCCESS:
+        console.log(action);
+        draft.error = action.error
+        return 
+      case DELETE_IMAGE_SUCCESS:
+        console.log(action.data)
+        draft.images = [...draft.images.filter( (item) => item.id !== action.data)]
+        return 
+      case DELETE_IMAGE_FAILURE:
+        draft.error = action.error
+        return 
+      case POST_COMMENT_SUCCESS:
+        console.log(action.data[0]) // renders {type: "POST_COMMENT_SUCCESS", data: {…}, id: 39, @@redux-saga/SAGA_ACTION: true}
+        const findKey = state.images.findIndex( x => x.id === action.id)
+        draft.images[findKey].comments = [...draft.images[findKey].comments, action.data[0]]
+        return;  
+      case POST_COMMENT_FAILURE:
+        draft.error = action.error
+        return
+
+    }
+    
+});
+
+export default imageReducer;
