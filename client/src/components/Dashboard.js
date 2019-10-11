@@ -3,10 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ImageUploader from 'react-images-upload';
-import PropTypes from 'prop-types';
 import ImageList from '../containers/imagelist';
-
+import ImageForm from './ImageForm';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +17,6 @@ class Dashboard extends Component {
       comment_body: '',
     };
   }
-
     handleUpload = (file) => {
       const data = new FormData();
       const image = file[0];
@@ -29,48 +26,29 @@ class Dashboard extends Component {
       this.props.uploadImage(data);
       this.setState({
         description: '',
+        upload: false
       });
     }
-
     handleChange = (e) => {
-      // e.preventDefault();
       this.setState({
         [e.target.name]: e.target.value,
       });
-      // console.log(this.state.description)
     }
-
     componentDidMount() {
       this.props.fetchImages();
-      
       console.log(this.props.images)
     }
-
     onUploadClick = (e) => {
       e.preventDefault();
       this.setState({
         upload: !this.state.upload,
       });
     }
-
     deleteImg = (id) => {
       this.props.deleteImage(id);
     }
-
     render() {
-      const uploader = (
-        <ImageUploader
-          withIcon
-          withPreview
-          onChange={this.handleUpload}
-          singleImage
-          buttonText="Upload an image"
-          imgExtension={['.jpg', '.gif', '.png', '.gif']}
-          maxFileSize={5242880}
-        />
-      );
       const { images, classes, likeCount, liked } = this.props;
- 
       return (
         <div>
           <Grid style={{ height: '500px' }} container justify="center">
@@ -104,9 +82,9 @@ class Dashboard extends Component {
                   <br />
                   <br />
                   {/* so here what we are saying, if this text field is FILLED show the uploader component
-                                else hide it.
-                                */}
-                  {this.state.description ? uploader : null}
+                      else hide it.
+                      */}
+                  {this.state.description ? <ImageForm handleUpload={this.handleUpload}/> : null}
                 </div>
               ) : (
                 null
@@ -119,5 +97,4 @@ class Dashboard extends Component {
       );
     }
 }
-
 export default Dashboard;
