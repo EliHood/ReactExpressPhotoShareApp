@@ -97,19 +97,11 @@ class SignUp extends Component {
               <Typography variant="h4" style={{ letterSpacing: '2px' }}>
                          Sign Up
               </Typography>
-              {this.props.auth.errors ? (
-                this.props.auth.errors.map((err, i) => (
-                  <div key={i} style={{ color: 'red' }}>
-                    {err}
-                  </div>
-                ))
-              ) : (
-                null
-              )}
+          
               {this.state.passErr && (
-              <div style={{ color: 'red' }}>
-                {this.state.passErr}
-              </div>
+                <div style={{ color: 'red' }}>
+                  {this.state.passErr}
+                </div>
               )}
               <SignUpForm
                 signSubmit={this.handleSubmit}
