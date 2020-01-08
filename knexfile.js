@@ -11,9 +11,9 @@ module.exports = {
         process.env.NODE_ENV === 'production'
           ? 'db'
           : process.env.HOST || '127.0.0.1',
-      user: process.env.DBUSER || 'postgres',
-      password: process.env.DBPASS || 'postgres',
-      database: process.env.DBNAME || 'postgres',
+      user: process.env.DBUSER || "eli",
+      password: process.env.DBPASS || '',
+      database: process.env.DBNAME || 'eliknex',
       charset: 'utf8',
       port: 5432,
     },

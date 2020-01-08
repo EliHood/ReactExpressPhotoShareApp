@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 if (localStorage.jwtToken) {
   // Set auth token header auth
   setAuthToken(localStorage.jwtToken);
+  
   // Decode token and get user info and exp
   const token = localStorage.getItem('jwtToken');
   const decoded = jwt_decode(token);
@@ -21,6 +22,7 @@ if (localStorage.jwtToken) {
     if (decoded.iat > currentTime) {
       // Logout user
       store.dispatch(userLogOut());
+      localStorage.clear()
       // Redirect to login
       window.location.href = '/login';
     }
