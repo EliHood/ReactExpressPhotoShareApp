@@ -7,9 +7,7 @@ import {
   USER_LOG_OUT_FAILURE,
   USER_LOG_IN_FAILURE,
   USER_LOG_IN_SUCCESS,
-  GET_ERRORS,
-  GET_CURRENT_USER,
-  REGISTER_USER,
+  INIT_LOGIN,
 } from '../types';
 import produce from 'immer';
 import isEmpty from '../utils/isEmpty';
@@ -30,15 +28,14 @@ const authReducer = (state = initialState, action) =>
         draft.isAuthenticated = !isEmpty(action.token)
         draft.user = action.token
         return
+      case INIT_LOGIN:
+        draft.errors = null
+        return;
       case REHYDRATE:
         console.log(action.payload)
         draft.user = null
+        draft.errors = null
         return
-      case GET_ERRORS:
-        console.log(action.payload);
-        // allows for us to loop through an array of errors.
-        draft.errors = action.error
-        return 
       case USER_LOG_OUT:
         draft.errors = action.error 
         return 
@@ -46,7 +43,6 @@ const authReducer = (state = initialState, action) =>
         draft.isAuthenticated = !isEmpty(action.data)
         draft.user = action.data
         return
-
       case REGISTER_USER_FAILURE:
         draft.isAuthenticated = false
         return
@@ -61,7 +57,6 @@ const authReducer = (state = initialState, action) =>
         draft.current_user = action.data
         draft.isAuthenticated = !isEmpty(action.data)
         return 
-
     }
     
 });

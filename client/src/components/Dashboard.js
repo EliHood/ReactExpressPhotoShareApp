@@ -29,7 +29,7 @@ export default function Dashboard (props) {
               <Typography align="center" variant="h6">
                         Welcome to the Dashboard
               </Typography>
-              <Button onClick={(e) => setUpload(!upload)} variant="outlined" component="span" color="primary">
+               <Button onClick={(e) => setUpload(!upload)} variant="outlined" component="span" color="primary">
                 {/* toggle between Upload or Close
                                 Will be upload by default, else if upload is clicked, close will show.
                             */}

@@ -15,6 +15,8 @@ export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILUR';
 export const REGISTER_USER = 'REGISTER_USER';
 
+export const INIT_LOGIN = "INIT_LOGIN"
+
 // image actions
 export const GET_IMAGES = 'GET_IMAGES';
 export const UPLOAD_IMAGE = 'UPLOAD IMAGE';

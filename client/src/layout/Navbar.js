@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Router, Link, Route, Switch,
 } from 'react-router-dom';
@@ -13,78 +13,72 @@ import Login from '../containers/login';
 import Dashboard from '../containers/dashboard';
 import Home from '../components/Home';
 import PrivateRoute from '../components/PrivateRoute';
-// import createBrowserHistory from 'history/createBrowserHistory'
 export const history = createBrowserHistory({forceRefresh:true});
-class Navbar extends Component {
-    logout = (e) => {
-      e.preventDefault();
-      console.log('test')
-      this.props.userLogOut();
-      history.push('/login');
-    }
-
-    render() {
-      // LINKS
-      const authLinks = (
-        <span>
-          <Button>
-            <Link to="/dashboard" color="primary">
-                        Dashboard
-            </Link>
-          </Button>
-          <Button onClick={this.logout} to="/">
-            <span>Logout</span>
-          </Button>
-        </span>
-      );
-      const guestLinks = (
-        <span>
-          <Button>
-            <Link to="/login">
-                        Login
-            </Link>
-          </Button>
-          <Button>
-            <Link to="/signup">
-                       Sign Up
-            </Link>
-          </Button>
-        </span>
-      );
-      return (
-        <div>
-          <Router history={history}>
-            <AppBar position="static">
-              <Toolbar>
-                <Grid justify="space-between" container>
-                  <Typography variant="h6" style={{ color: '#fff' }}>
-                               Image Upload App
-                  </Typography>
-                  {/* if is authenticated, will render authlinks
-                                if not will render guest links
-                            */}
-                  <Grid item>
-                    <Button align="right">
-                      <Link style={{ color: '#fff' }} underline="none" to="/">
-                          Home
-                      </Link>
-                    </Button>
-                    {this.props.auth.isAuthenticated ? authLinks : guestLinks}
-                  </Grid>
-                </Grid>
-              </Toolbar>
-            </AppBar>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/login" component={Login} />
-              {' '}
-              {/* private routes for users who are authenticated */}
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-          </Router>
-        </div>
-      );
-    }
+export default function Navbar(props){
+  const logout = (e) => {
+    e.preventDefault();
+    console.log('test')
+    props.userLogOut();
+    history.push('/login');
+  }
+  const authLinks = (
+    <span>
+      <Button>
+        <Link to="/dashboard" color="primary">
+            Dashboard
+        </Link>
+      </Button>
+      <Button onClick={logout} to="/">
+        <span>Logout</span>
+      </Button>
+    </span>
+  );
+  const guestLinks = (
+    <span>
+      <Button>
+        <Link to="/login">
+          Login
+        </Link>
+      </Button>
+      <Button>
+        <Link to="/signup">
+          Sign Up
+        </Link>
+      </Button>
+    </span>
+  );
+  return(
+      <div>
+      <Router history={history}>
+        <AppBar position="static">
+          <Toolbar>
+            <Grid justify="space-between" container>
+              <Typography variant="h6" style={{ color: '#fff' }}>
+                  Image Upload App
+              </Typography>
+              {/* if is authenticated, will render authlinks
+                  if not will render guest links
+              */}
+              <Grid item>
+                <Button align="right">
+                  <Link style={{ color: '#fff' }} underline="none" to="/">
+                      Home
+                  </Link>
+                </Button>
+                {props.auth.isAuthenticated ? authLinks : guestLinks}
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
+          {' '}
+          {/* private routes for users who are authenticated */}
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        </Switch>
+      </Router>
+    </div>
+  );
 }
-export default Navbar;

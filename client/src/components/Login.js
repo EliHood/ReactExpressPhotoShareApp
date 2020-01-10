@@ -1,12 +1,21 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from './LoginForm/LoginForm';
 import IsAuth from '../isAuthenticatedHoc';
 function Login(props){
+  const didMountRef = useRef()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
+  useEffect( () => {
+    if(! didMountRef.current) {
+      didMountRef.current = true
+      props.initLogin();
+    }else{
+      // console.log('this is component didupdate')
+    }
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
     const creds = {
@@ -41,7 +50,6 @@ function Login(props){
           </Grid>
         </div>
       );
-  
 }
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,

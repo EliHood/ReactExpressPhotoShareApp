@@ -46,8 +46,7 @@ export default function ImageContainer(props) {
       }
     }
       const {
-        img, deleteImg, postLike, classes,  user:{ username }, liked
-      } = props;
+        img, deleteImg, classes,  user:{ username }      } = props;
       return (
         <Grid item sm={12} md={12} className={classes.imageGridItem}>
           <LazyLoad throttle={200} height={600}>

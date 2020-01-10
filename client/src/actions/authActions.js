@@ -10,6 +10,7 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   GET_ERRORS,
+  INIT_LOGIN,
   GET_CURRENT_USER,
   USER_LOG_IN_SUCCESS,
   CURRENT_USER_SUCCESS,
@@ -73,3 +74,7 @@ export const registerUser = userData => ({
   type: REGISTER_USER,
   userData,
 });
+
+export const initLogin = () => ({
+  type: INIT_LOGIN,
+})
