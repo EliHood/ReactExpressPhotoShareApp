@@ -25,7 +25,7 @@ export default function (WrappedComponent) {
         nextProps.history.push('/dashboard');
       }
       if (nextProps.errors) {
-        return {errors: nextProps.errors};
+        return {errors: "Owls"};
       }
       return null
     }

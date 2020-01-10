@@ -1,126 +1,88 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect, useRef} from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import SignUpForm from './SignUpForm/SignUpForm';
 import IsAuth from '../isAuthenticatedHoc';
-
-class SignUp extends Component {
-  constructor() {
-    super();
-    this.state = {
-      formData: {
-        email: '',
-        username: '',
-        password: '',
-        passwordConf: '',
-        isAuthenticated: false,
-      },
-      password_error_text: '',
-      passErr: null,
-      passwordConf_error_text: '',
-      passwordConfpassErr: null,
-    };
-  }
-
-  handleChange = (e) => {
+function SignUp(props) {
+  const didMountRef = useRef()
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConf, setPasswordConf] = useState('');
+  const [password_error_text, setPasswordErrorText] = useState('');
+  const [passErr, setPassErr] = useState(null);
+  const [passwordConf_error_text, setPasswordConfErrorText] = useState('')
+  const [passwordConfpassErr, setPasswordConfPassErr] = useState(null)
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { formData } = this.state;
-    this.setState({
-      formData: {
-        ...formData,
-        [e.target.name]: e.target.value,
-      },
-    });
-  }
-
-
-    handleSubmit = (e) => {
-      e.preventDefault();
-      const { formData } = this.state;
-      const {
-        username, email, password, passwordConf,
-      } = formData;
-      this.setState({
-        username: this.state.username,
-        password: this.state.password,
-        passwordConf: this.state.passwordConf,
-        email: this.state.email,
-      });
-      const creds = {
-        username,
-        email,
-        password,
-      };
-      console.log(creds);
-      if (password === passwordConf) {
-        this.props.registerUser(creds, this.props.history);
-      } else {
-        this.setState({ passErr: "Passwords Don't Match" });
-      }
+    console.log(username,email, password, passwordConf)
+    const creds = {
+      username,
+      email,
+      password,
+    };
+    console.log(creds);
+    if (password === passwordConf) {
+      props.registerUser(creds, props.history);
+    } else {
+      setPassErr('Passwords dont match')
     }
-
-    componentDidUpdate(prevProps, prevState) {
-      if (this.state.formData.password.length !== prevState.formData.password.length) {
-        if (this.state.formData.password.length <= 6) {
-          this.setState({
-            passErr: true,
-            password_error_text: 'Password must be at least 6 Chars',
-          });
-          console.log(this.state.password_error_text);
+  }
+  useEffect( () => {
+    if(! didMountRef.current) {
+      didMountRef.current = true
+      console.log('this gets called once')
+    }
+    else{
+      console.log('test')
+      if (password.length !== password.length) {
+        if (password.length <= 6) {
+          setPassErr(true)
+          setPasswordErrorText('Password must be at least 6 Chars')
+          console.log(password_error_text);
         } else {
-          this.setState({
-            passErr: false,
-            password_error_text: '',
-          });
+          setPassErr(false)
+          setPasswordErrorText('')
         }
       }
     }
-
-    render() {
-      // debugger;
-      // console.log(this.state.formData.password)
-      // console.log(this.state.password_error_text)
-      // here we are making sure all fields are filled before we allow the button to appear
-      const validation = {
-        validation: !this.state.formData.email
-                    || !this.state.formData.username
-                    || !this.state.formData.password
-                    || !this.state.formData.passwordConf
-                    || this.state.formData.password.length <= 6
-                    || this.state.formData.passwordConf.length <= 6,
-      };
+  })
+  const validation = {
+        validation: !email || !username || !password|| !passwordConf|| password.length <= 6 || passwordConf.length <= 6,
+    };
       return (
         <div>
           <Grid container justify="center" spacing={0}>
             <Grid item sm={10} md={6} lg={4} style={{ margin: '20px 0px' }}>
               <Typography variant="h4" style={{ letterSpacing: '2px' }}>
-                         Sign Up
+                  Sign Up
               </Typography>
-          
-              {this.state.passErr && (
+              {passErr && (
                 <div style={{ color: 'red' }}>
-                  {this.state.passErr}
+                  {passErr}
                 </div>
               )}
               <SignUpForm
-                signSubmit={this.handleSubmit}
-                username={this.state.username}
-                myChange={this.handleChange}
-                email={this.state.email}
-                password_error_text={this.state.password_error_text}
-                passErr={this.state.passErr}
-                password={this.state.password}
-                passwordConf_error_text={this.state.passwordConf_error_text}
-                passwordConfpassErr={this.state.passwordConfpassErr}
-                passwordConf={this.state.passwordConf}
+                signSubmit={handleSubmit}
+                username={username}
+                handleEmailChange={e => setEmail(e.target.value)}
+                handleUsernameChange={e => setUsername(e.target.value)}
+                handlePasswordChange={e => setPassword(e.target.value)}
+                handlePaswordConf={e => setPasswordConf(e.target.value)}
+                email={email}
+                password_error_text={password_error_text}
+                passErr={passErr}
+                password={password}
+                passwordConf_error_text={passwordConf_error_text}
+                passwordConfpassErr={passwordConfpassErr}
+                passwordConf={passwordConf}
                 validation={validation.validation}
               />
             </Grid>
           </Grid>
         </div>
       );
-    }
 }
 SignUp.propTypes = {
   registerUser: PropTypes.func.isRequired,

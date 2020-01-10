@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 const LoginForm = ({
-  mySubmit, myChange, username, password,
+  mySubmit,username, password, passwordChange, usernameChange
 }) => (
   <form onSubmit={mySubmit}>
     <TextField
@@ -13,7 +13,7 @@ const LoginForm = ({
       style={{ borderRadius: 25 }}
       name="username"
       value={username}
-      onChange={myChange}
+      onChange={usernameChange}
       margin="normal"
     />
     <TextField
@@ -24,13 +24,13 @@ const LoginForm = ({
       style={{ borderRadius: '0px' }}
       className=""
       value={password}
-      onChange={myChange}
+      onChange={passwordChange}
       margin="normal"
     />
     <br />
     <br />
     <Button variant="outlined" color="primary" type="submit">
-            Log In
+      Log In
     </Button>
   </form>
 

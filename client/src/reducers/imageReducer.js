@@ -3,16 +3,11 @@ import {
   POST_COMMENT_SUCCESS,
   DELETE_IMAGE_FAILURE,
   FETCH_IMAGES_SUCCESS,
-  POST_COMMENT,
-  POST_LIKE,
-  POST_LIKE_SUCCESS,
   DISLIKE_POST_SUCCESS,
   DELETE_IMAGE_SUCCESS,
   FETCH_IMAGES_FAILURE,
   POST_COMMENT_FAILURE,
 } from '../types';
-import { REHYDRATE, PURGE, FLUSH }from 'redux-persist'
-import { stat } from 'fs';
 import produce from 'immer';
 // We use seamless-immutable but thats for
 const initialState = {

@@ -1,70 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import LazyLoad from 'react-lazyload';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import Comment from './Comment/Comment';
 import Image from './Image/Image';
 import CommentList from './CommentList';
-class ImageContainer extends React.Component {
-    state = {
-      isComment: false,
-      comment_body: '',
-      heart: false,
+export default function ImageContainer(props) {
+    const [isComment, setIsComment] = useState(false)
+    const [comment_body, setCommentBody] = useState('')
+    const [heart, setHeart] = useState(false)
+    const writeComment = (id) => {
+      setIsComment(isComment ? '' : id)
     }
-    handleCommentChange = (e) => {
-      this.setState({
-        comment_body: e.target.value,
-      });
-    }
-    // handles opening up the comment component when writeComment is executed
-    writeComment = (id) => {
-      this.setState({
-        isComment: this.state.isComment ? '' : id, // check if state is filled to toggle on/off comment section 
-      });
-    }
-    postLike = (e, id) => {
-      e.preventDefault();
-      this.setState({
-        heart: !this.state.heart,
-      });
+    const ourPostLike = (e, id) => {
+      e.preventDefault()
+      setHeart(!heart)
       const newHeart = true;
       const newData = {
         id, newHeart,
       };
-      if (this.state.heart) {
-        this.props.postLike(newData);
+      if (heart) {
+        props.postLike(newData);
       } else {
-        this.props.postDislike(newData)
+        props.postDislike(newData)
       }
     }
-    commentSubmit = (event, id) => {
-      event.preventDefault();
-      console.log(this.state.comment_body); // doesn't get console.log
+    const commentSubmit = (e, id) => {
+      e.preventDefault();
+      console.log(comment_body); // doesn't get console.log
       // note that commentBody is being used for the req.body as well so its called by req.body.commentBody
-      const commentBody = this.state.comment_body;
+      const commentBody = comment_body;
       const data = {
         commentBody,
         id,
       };
-      if(this.props.postComment(data)){
-          this.setState({
-            isComment: false, // hides comment component when data is submitted
-            comment_body: ''
-          })
+      if(props.postComment(data)){
+          setIsComment(false)
+          setCommentBody('')
       }
     }
-    render() {
       const {
         img, deleteImg, postLike, classes,  user:{ username }, liked
-      } = this.props;
+      } = props;
       return (
         <Grid item sm={12} md={12} className={classes.imageGridItem}>
           <LazyLoad throttle={200} height={600}>
@@ -75,25 +58,25 @@ class ImageContainer extends React.Component {
               <Image image_url={img.img_url} />
               <Typography variant="h6" align="center">{username}</Typography>
               <Typography variant="h6" align="center">{moment(img.created_at).calendar()}</Typography>
-              <Button onClick={() => this.writeComment(img.id)} variant="outlined" component="span" color="primary">
-                {this.state.isComment === img.id ? 'Close' : 'Write A Comment'} 
+              <Button onClick={() => writeComment(img.id)} variant="outlined" component="span" color="primary">
+                {isComment === img.id ? 'Close' : 'Write A Comment'} 
               </Button>
               {/* here were prevent comments being selected for all items in the array, renders the comment form you clicked on.  */}
-              {this.state.isComment === img.id
+              {isComment === img.id
               // if you want to pass a paramter and need use e.preventDefault this is how you would do it.
                 ? (
                   <Comment
-                    onSubmit={e => this.commentSubmit(e, img.id)}
-                    commentBody={this.state.comment_body}
-                    commentChange={this.handleCommentChange}
+                    onSubmit={e => commentSubmit(e, img.id)}
+                    commentBody={comment_body}
+                    commentChange={(e) => setCommentBody(e.target.value)}
                   />
                 )
                 : null}
               {/* hide delete button when user enters comment */}
               {/* if user_id is equal too the current_user id, user can delete there post. */}
-              {this.props.auth.current_user.user.id === img.user_id ? (
+              {props.auth.current_user.user.id === img.user_id ? (
                 <span>
-                  {!this.state.isComment ? (
+                  {!isComment ? (
                     <Button className={classes.deleteButton} onClick={deleteImg} variant="outlined" component="span" color="primary">
                     Delete
                     </Button>
@@ -102,8 +85,8 @@ class ImageContainer extends React.Component {
               ) : (
                 null
               )}
-              <span className={classes.likeButton} onClick={e => this.postLike(e, img.id)} style={{ cursor: 'pointer' }}>
-                {this.state.heart
+              <span className={classes.likeButton} onClick={e => ourPostLike(e, img.id)} style={{ cursor: 'pointer' }}>
+                {heart
                   ? (
                     <span>
                       <Favorite style={{ color: 'tomato' }} />
@@ -124,10 +107,8 @@ class ImageContainer extends React.Component {
           </LazyLoad>
         </Grid>
       );
-    }
 }
 ImageContainer.propTypes = {
   postComment: PropTypes.func.isRequired,
-  postLike: PropTypes.func.isRequired,
+  ourPostLike: PropTypes.func.isRequired,
 };
-export default ImageContainer;

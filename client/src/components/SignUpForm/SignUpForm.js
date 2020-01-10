@@ -4,7 +4,9 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 const SignUpForm = ({
-  signSubmit, myChange, username, password, email,
+  signSubmit, handleEmailChange, handleUsernameChange,
+  handlePasswordChange,handlePaswordConf,
+  username, password, email,
   passErr,password_error_text,
   passwordConf_error_text,
   passwordConfpassErr, passwordConf,
@@ -16,7 +18,7 @@ const SignUpForm = ({
       style={{ width: '100%' }}
       name="username"
       value={username}
-      onChange={myChange}
+      onChange={handleUsernameChange}
       margin="normal"
     />
     <br />
@@ -26,7 +28,7 @@ const SignUpForm = ({
       style={{ width: '100%' }}
       name="email"
       value={email}
-      onChange={myChange}
+      onChange={handleEmailChange}
       margin="normal"
     />
     <br />
@@ -39,7 +41,7 @@ const SignUpForm = ({
       error={passErr}
       className=""
       value={password}
-      onChange={myChange}
+      onChange={handlePasswordChange}
       margin="normal"
     />
     {/*  */}
@@ -53,7 +55,7 @@ const SignUpForm = ({
       style={{ width: '100%' }}
       className=""
       value={passwordConf}
-      onChange={myChange}
+      onChange={handlePaswordConf}
       margin="normal"
     />
     <br />
