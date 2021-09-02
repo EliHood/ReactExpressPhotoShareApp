@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.2.1",
     "axios": "^0.18.0",
     "babel-eslint": "10.0.2",
-    "immer": "^4.0.1",
+    "immer": "^9.0.6",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
