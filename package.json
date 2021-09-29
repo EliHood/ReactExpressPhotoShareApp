@@ -43,7 +43,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "express-validator": "^5.3.1",
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.16.5",
     "morgan": "^1.9.1",
