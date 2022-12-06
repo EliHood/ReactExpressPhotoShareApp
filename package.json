@@ -22,7 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.7",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "bookshelf": "^0.14.2",
     "bookshelf-cascade-delete": "^2.0.1",
     "bookshelf-eloquent": "^0.1.15",
@@ -40,7 +40,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.19.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.0",
     "express-validator": "^5.3.1",
     "i": "^0.3.6",
